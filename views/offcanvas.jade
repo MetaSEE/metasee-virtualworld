@@ -1,0 +1,82 @@
+//- Edit UML class Panel Offcanvas
+#offcanvasScrolling.offcanvas.offcanvas-end(data-bs-scroll='false', data-bs-backdrop='false', tabindex='-1', aria-labelledby='offcanvasScrollingLabel')
+  .offcanvas-header
+    h5#offcanvasScrollingLabel.offcanvas-title(type='button', data-bs-toggle='offcanvas', data-bs-target='#offcanvasScrolling', aria-controls='offcanvasRight') Edit Class Panel
+    button.btn-close(type='button', data-bs-dismiss='offcanvas', aria-label='Close')
+  .offcanvas-body
+    form
+      //- CLASS NAME
+      #aumlclass-section-classname.card.mb-4(style='width: 100%;')
+        .card-header
+          h5 Class name            
+        .card-body
+          input#aumlclass-class-name.form-control(type='text', data-aumlclass-class-name='', aria-describedby='textHelp', placeholder='Enter class name', maxlength='20')
+      //- ATTRIBUTE SECTION
+      #aumlclass-section-attr.card.mb-4(style='width: 100%;')
+        .card-header
+          h5 Attributes
+        .card-body
+          #aumlclass-attr-row
+            .row.mb-2
+              .col.col-md-8
+                input#aumlclass-attr-name.form-control.aumlclass-attr-name(type='text', aria-describedby='textHelp', name='attr[]', placeholder='Enter attribute name')
+              .col.col-md-4
+                button#aumlclass-bt-remove-attr-row.btn.btn-danger(type='button', style='width:100%') Remove
+          button#aumlclass-bt-add-attr.btn.btn-secondary.mt-2(type='button') Add Attribute
+      //- OPERATION SECTION
+      #aumlclass-section-oper.card.mb-4(style='width: 100%;')
+        .card-header
+          h5.card-title Operations
+        .card-body
+          #aumlclass-oper-row
+            .row.mb-2
+              .col.col-md-8
+                input.form-control.aumlclass-oper-name(type='text', aria-describedby='textHelp', name='oper[]', placeholder='Enter operation name')
+              .col.col-md-4
+                button#aumlclass-bt-remove-oper-row.btn.btn-danger(type='button', style='width:100%') Remove
+          button#aumlclass-bt-add-oper.btn.btn-secondary.mt-2(type='button') Add Operation
+      //- DELETE AND DONE BUTTONS
+      .row.mb-2
+        .col.col-md-6
+          .d-grid.gap-2.col-12.mx-auto
+            button#bt-deleteumlclass.btn.btn-danger.btn-lg(type='button') Delete
+        .col.col-md-6
+          .d-grid.gap-2.col-12.mx-auto
+            button#bt-offcanvas-done.btn.btn-dark.btn-lg(type='button', data-bs-dismiss='offcanvas') Done 
+//- Edit UML class Panel Offcanvas End
+
+//- Edit Association Panel Offcanvas
+#offcanvasEditAssociationPanel.offcanvas.offcanvas-end(data-bs-scroll='false', data-bs-backdrop='false', tabindex='-1', aria-labelledby='offcanvasEditAssociationPanelLabel')
+  .offcanvas-header
+    h5#offcanvasEditAssociationPanelLabel.offcanvas-title Edit Association Panel
+    button.btn-close(type='button', data-bs-dismiss='offcanvas', aria-label='Close')
+  .offcanvas-body
+    form
+      //- ASSOCIATION TYPE SECTION
+      #aumlclass-section-ass-type.card.mb-4(style='width: 100%;')
+        .card-body
+          h5.card-title Association Type
+          select.form-select(aria-label='')
+            option(selected='', value='simple') Simple
+            option(value='aggregation') Aggregation
+            option(value='composition') Composition
+            option(value='generalization') Generalization
+      //- ASSOCIATION START SECTION
+      #aumlclass-section-ass-start.card.mb-4(style='width: 100%;')
+        .card-body
+          h5.card-title Association Start
+          select#aumlclass-ass-start-select.form-select(aria-label='')
+            option(selected='', value='')
+      //- ASSOCIATION END SECTION
+      #aumlclass-section-ass-end.card.mb-4(style='width: 100%;')
+        .card-body
+          h5.card-title Association End
+          select#aumlclass-ass-end-select.form-select(aria-label='')
+            option(selected='', value='')
+      .d-grid.gap-2.col-6.mx-auto
+        button#bt-offcanvas-ass-done.btn.btn-dark.btn-lg(type='button', data-bs-dismiss='offcanvas') Done
+//- Edit Association Panel Offcanvas End
+
+//- Edit 3D Model Panel Offcanvas
+#offcanvasEdit3DModelPanel.offcanvas.offcanvas-end(data-bs-scroll='false', data-bs-backdrop='false', tabindex='-1', aria-labelledby='offcanvasEdit3DModelPanelLabel')
+//- Edit 3D Model Panel Offcanvas End

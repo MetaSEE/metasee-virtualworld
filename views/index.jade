@@ -3,48 +3,9 @@ extends layout
 block content
   //- h1= title
   //- p Welcome to #{title}
-
-  //- The Virtual World
-  a-scene(
-    inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js"
-    cursor="rayOrigin:mouse, raycaster=.raycastable"
-    networked-scene="room: #{title}; debug: true; adapter: wseasyrtc;"
-  )
-    //- Assets
-    a-assets
-      //- Templates
-      //- Camera Rig / Player
-      template(id="rig-template")
-        a-entity
-
-      //- Head / Avatar // a few spheres make a head + eyes + pupils
-      template(id="avatar-template")
-        a-entity(class="avatar")
-          //- notice this child sphere, with class .head, has the random-color component; this modifies the material component's color property
-          a-sphere(class="head" scale="0.2 0.22 0.2" random-color)
-          a-entity(class="face" position="0 0.05 0")
-            //- eye 1
-            a-sphere(class="eye" color="white" position="0.06 0.05 -0.16" scale="0.04 0.04 0.04")
-              a-sphere(class="pupil" color="black" position="0 0 -1" scale="0.2 0.2 0.2")
-            //- eye 2
-            a-sphere(class="eye" color="white" position="-0.06 0.05 -0.16" scale="0.04 0.04 0.04")
-              a-sphere(class="pupil" color="black" position="0 0 -1" scale="0.2 0.2 0.2")
-      //- Templates End
-    //- Assets End
-    
-    //- Avatar
-    a-entity(id="rig" spawn-in-circle="radius:3" networked="template:#rig-template;")
-      a-entity(
-        id="player"
-        camera
-        position="0 2.5 0"
-        look-controls
-        wasd-controls
-        networked="template:#avatar-template;"
-        visible="false"
-      )
-    //- Avatar End
-
-    //- Environment
-    a-entity(environment="preset: contact")
-  //- The Virtual World End
+  
+  include menus
+  include toasts
+  include modals
+  include offcanvas
+  include virtualworld

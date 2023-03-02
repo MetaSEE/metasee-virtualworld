@@ -1,0 +1,24 @@
+//- UML class Modal
+#exampleModal.modal.fade(data-bs-backdrop='false', data-bs-focus='false', data-bs-keyboard='true')
+  .modal-dialog.position-fixed.bottom-0.start-50.translate-middle-x
+    .modal-content
+      .modal-header
+        h1#exampleModalLabel.modal-title.fs-5 UML Class
+        button.btn-close(type='button', data-bs-dismiss='modal', aria-label='Close')
+      .modal-body
+        .container.text-center
+          .row.align-items-center
+            .col
+              img(src='https://cdn.glitch.global/6d89544b-5704-4d99-85c2-7456e97ca59a/icon_umlclass.png?v=1673957478694')
+              br
+            .col
+              img(src='https://cdn.glitch.global/6d89544b-5704-4d99-85c2-7456e97ca59a/icon_association.png?v=1673958909921')
+              br
+          .row.align-items-center
+            .col
+              div(data-bs-toggle='tooltip', data-bs-dismiss='modal', data-bs-placement='top', data-bs-custom-class='custom-tooltip', data-bs-title='Create a UML class in the virtual world')
+                button#addclass.btn.btn-light.mt-2(type='button', data-bs-toggle='offcanvas', data-bs-target='#offcanvasScrolling', aria-controls='offcanvasRight') Add class
+            .col
+              div(data-bs-toggle='tooltip', data-bs-dismiss='modal', data-bs-placement='top', data-bs-custom-class='custom-tooltip', data-bs-title='Create an association between UML classes')
+                button#addassociation.btn.btn-light.mt-2(type='button', data-bs-toggle='offcanvas', data-bs-target='#offcanvasEditAssociationPanel', aria-controls='offcanvasRight') Add association
+//- UML class Modal End
