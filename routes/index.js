@@ -20,7 +20,7 @@ router.get('/:id', (req, res, next)=>{
 
     response.on('end', ()=>{
       if(vwdata.id != undefined ){
-        res.render('index', { title: 'MetaSEE' });
+        res.render('index', { title: 'MetaSEE', id: vwdata.id});
       }else{
         res.redirect('/');
       }

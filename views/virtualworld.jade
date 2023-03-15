@@ -1,7 +1,7 @@
 //- The Virtual World
 a-scene(
   inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js"
-  cursor="rayOrigin:mouse, raycaster=.raycastable"
+  cursor="rayOrigin:mouse"
   networked-scene="room: #{title}; debug: true; adapter: wseasyrtc;"
 )
   //- Assets
@@ -40,5 +40,5 @@ a-scene(
   //- Avatar End
 
   //- Environment
-  a-entity(environment="preset: contact; groundColor: #445")
+  a-entity(id="environment" environment="preset: none; groundColor: #445")
 //- The Virtual World End
