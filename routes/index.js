@@ -7,8 +7,10 @@ router.get('/', function(req, res, next) {
   res.send('Please, select a Virtual World and enjoy!');
 });
 
+const API_URL = `http://localhost:3333`;
+
 router.get('/:id', (req, res, next)=>{
-  const API = `http://localhost:3030/virtualworlds/${req.params.id}`;
+  const API = `${API_URL}/virtualworld/${req.params.id}`;
 
   //Get VW data (tip from https://dev.to/isalevine/three-ways-to-retrieve-json-from-the-web-using-node-js-3c88)
   http.get(API, response =>{
@@ -19,8 +21,8 @@ router.get('/:id', (req, res, next)=>{
     });
 
     response.on('end', ()=>{
-      if(vwdata.id != undefined ){
-        res.render('index', { title: 'MetaSEE', id: vwdata.id});
+      if(vwdata._id != undefined ){
+        res.render('index', { title: 'MetaSEE', id: vwdata._id});
       }else{
         res.redirect('/');
       }

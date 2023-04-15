@@ -7,7 +7,8 @@ const decodedURL = URL.split("/");
 // return the last item, id
 const id_vw = decodedURL[decodedURL.length-1];
 
-const API_VIRTUALWORLDS = `http://localhost:3030/virtualworlds/${id_vw}`;
+const API_URL = `http://localhost:3333`;
+const API_VIRTUALWORLDS = `${API_URL}/virtualworld/${id_vw}`;
 
 $.getJSON(API_VIRTUALWORLDS)
   .done((data)=>{ 
