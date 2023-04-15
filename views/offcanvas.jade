@@ -4,37 +4,36 @@
     h5#offcanvasScrollingLabel.offcanvas-title(type='button', data-bs-toggle='offcanvas', data-bs-target='#offcanvasScrolling', aria-controls='offcanvasRight') Edit Class Panel
     button.btn-close(type='button', data-bs-dismiss='offcanvas', aria-label='Close')
   .offcanvas-body
-    //- form
-    //- CLASS NAME
-    #aumlclass-section-classname.card.mb-4(style='width: 100%;')
-      .card-header
-        h5 Class name            
-      .card-body
-        input#aumlclass-class-name.form-control(type='text', data-aumlclass-class-name='', aria-describedby='textHelp', placeholder='Enter class name', maxlength='20')
-    //- ATTRIBUTE SECTION
-    //- #aumlclass-section-attr.card.mb-4(style='width: 100%;')
-    //-   .card-header
-    //-     h5 Attributes
-    //-   .card-body
-    //-     #aumlclass-attr-row
-    //-       .row.mb-2
-    //-         .col.col-md-8
-    //-           input#aumlclass-attr-name.form-control.aumlclass-attr-name(type='text', aria-describedby='textHelp', name='attr[]', placeholder='Enter attribute name')
-    //-         .col.col-md-4
-    //-           button#aumlclass-bt-remove-attr-row.btn.btn-danger(type='button', style='width:100%') Remove
-    //-     button#aumlclass-bt-add-attr.btn.btn-secondary.mt-2(type='button') Add Attribute
-    //- OPERATION SECTION
-    //- #aumlclass-section-oper.card.mb-4(style='width: 100%;')
-    //-   .card-header
-    //-     h5.card-title Operations
-    //-   .card-body
-    //-     #aumlclass-oper-row
-    //-       .row.mb-2
-    //-         .col.col-md-8
-    //-           input.form-control.aumlclass-oper-name(type='text', aria-describedby='textHelp', name='oper[]', placeholder='Enter operation name')
-    //-         .col.col-md-4
-    //-           button#aumlclass-bt-remove-oper-row.btn.btn-danger(type='button', style='width:100%') Remove
-    //-     button#aumlclass-bt-add-oper.btn.btn-secondary.mt-2(type='button') Add Operation
+      //- CLASS NAME
+      #aumlclass-section-classname.card.mb-4(style='width: 100%;')
+        .card-header
+          h5 Class name            
+        .card-body
+          input#aumlclass-class-name.form-control(type='text', data-aumlclass-class-name='', aria-describedby='textHelp', placeholder='Enter class name', maxlength='20')
+      //- ATTRIBUTE SECTION
+      //- #aumlclass-section-attr.card.mb-4(style='width: 100%;')
+        .card-header
+          h5 Attributes
+        .card-body
+          #aumlclass-attr-row
+            .row.mb-2
+              .col.col-md-8
+                input#aumlclass-attr-name.form-control.aumlclass-attr-name(type='text', aria-describedby='textHelp', name='attr[]', placeholder='Enter attribute name')
+              .col.col-md-4
+                button#aumlclass-bt-remove-attr-row.btn.btn-danger(type='button', style='width:100%') Remove
+          button#aumlclass-bt-add-attr.btn.btn-secondary.mt-2(type='button') Add Attribute
+      //- OPERATION SECTION
+      //- #aumlclass-section-oper.card.mb-4(style='width: 100%;')
+        .card-header
+          h5.card-title Operations
+        .card-body
+          #aumlclass-oper-row
+            .row.mb-2
+              .col.col-md-8
+                input.form-control.aumlclass-oper-name(type='text', aria-describedby='textHelp', name='oper[]', placeholder='Enter operation name')
+              .col.col-md-4
+                button#aumlclass-bt-remove-oper-row.btn.btn-danger(type='button', style='width:100%') Remove
+          button#aumlclass-bt-add-oper.btn.btn-secondary.mt-2(type='button') Add Operation
       //- DELETE AND DONE BUTTONS
       .row.mb-2
         .col.col-md-6

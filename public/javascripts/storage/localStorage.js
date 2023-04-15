@@ -15,9 +15,13 @@ let UMLASSOCIATIONS = [];    // CREATE UML ASSOCIATION ARRAY
 // CLASSES  ////////////
 
 // CREATE UML CLASS
-function storageSetUMLclass(id, classname, position){
+function storageSetUMLclassOnlyLocalStorage(id, classname){
   UMLCLASSES.push( {'id':id,'classname':classname} );
   localStorage.setItem('umlclasses',JSON.stringify(UMLCLASSES));
+}
+
+function storageSetUMLclass(id, classname, position){
+  storageSetUMLclassOnlyLocalStorage(id, classname);
 
   let umlclassdata = {
     "id":id,
@@ -44,7 +48,9 @@ function storageRenameUMLclass(id, classname){
   storageDeleteUMLclassById(id);
 
   // add it with new data in UMLCLASSES
-  storageSetUMLclass(id, classname);
+  storageSetUMLclassOnlyLocalStorage(id, classname);
+
+  APIupdateUMLclass(`${API_URL}/umlclass/id/${id}` , {"classname":classname});
 }
 
 // FIND UML CLASS BY ID
