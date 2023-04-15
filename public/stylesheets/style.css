@@ -1,0 +1,18 @@
+.modal{
+  height: 1px !important;
+  width: 1px !important;
+}
+
+.modal-dialog {
+   margin-bottom: 100px !important;
+} 
+
+#mainmenu{
+  display:block;
+  z-index:9999;
+}
+
+#classmenu{
+  display:none;
+  z-index:9999;
+}
