@@ -91,9 +91,22 @@ function storageDeleteUMLclassById(id){
 // ASSOCIATIONS ///////
 
 // CREATE UML ASSOCIATION
-function storageSetUMLassociation(id, startumlclass, endumlclass){
+function storageSetUMLassociationOnlyLocalStorage(id, startumlclass, endumlclass){
   UMLASSOCIATIONS.push( {'id':id,'startumlclass':startumlclass, 'endumlclass':endumlclass} );
   localStorage.setItem('umlassociations',JSON.stringify(UMLASSOCIATIONS));
+}
+
+function storageSetUMLassociation(id, idumlclass_start, idumlclass_end, id_umlclass_start_mongodb, id_umlclass_end_mongodb){
+  storageSetUMLassociationOnlyLocalStorage(id, idumlclass_start, idumlclass_end);
+
+  let data = {
+    "id": id,
+    "umlclass_start": id_umlclass_start_mongodb,
+    "umlclass_end": id_umlclass_end_mongodb,
+    "virtualworld": VW_ID
+  }
+
+  APIcreateUMLassociation(`${API_URL}/umlassociation` , data);
 }
 
 // GET UML ASSOCIATIONS
@@ -107,7 +120,7 @@ function storageRenameUMLassociation(id, startumlclass, endumlclass){
   storageDeleteUMLassociationById(id);
 
   // add it with new data in UMLCLASSES
-  storageSetUMLassociation(id, startumlclass, endumlclass);
+  storageSetUMLassociationOnlyLocalStorage(id, startumlclass, endumlclass);
 }
 
 // FIND UML ASSOCIATION BY ID

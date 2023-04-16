@@ -116,22 +116,22 @@ $("#offcanvasScrolling").on('hidden.bs.offcanvas	', function(){
 
 // ADD CLASSSES IN THE SELECTS OF THE EDIT ASSOCIATION PANEL  /////////////////////////////////////////////
 $("#offcanvasScrolling").on('hidden.bs.offcanvas	', function(){
-  $("#aumlclass-ass-start-select").remove();
-  $("#aumlclass-ass-end-select").remove();
+  // $("#aumlclass-ass-start-select").remove();
+  // $("#aumlclass-ass-end-select").remove();
 
-  if( storageGetUMLclasses().length >= 1 ){
-    const selectstart = '<select id="aumlclass-ass-start-select" aria-label="" class="form-select"><option value=""></option></select>';
-    $("#aumlclass-section-ass-start .card-body").append(selectstart);
+  // if( storageGetUMLclasses().length >= 1 ){
+  //   const selectstart = '<select id="aumlclass-ass-start-select" aria-label="" class="form-select"><option value=""></option></select>';
+  //   $("#aumlclass-section-ass-start .card-body").append(selectstart);
 
-    const selectend = '<select id="aumlclass-ass-end-select" aria-label="" class="form-select"><option value=""></option></select>';
-    $("#aumlclass-section-ass-end .card-body").append(selectend);
+  //   const selectend = '<select id="aumlclass-ass-end-select" aria-label="" class="form-select"><option value=""></option></select>';
+  //   $("#aumlclass-section-ass-end .card-body").append(selectend);
 
-    for(var umlclass of storageGetUMLclasses()){
-      var option = '<option value="'+umlclass.id+'">'+umlclass.classname+'</option>'; 
-      $("#aumlclass-ass-start-select").append(option); // association start
-      $("#aumlclass-ass-end-select").append(option);   // association end
-    }
-  }
+  //   for(var umlclass of storageGetUMLclasses()){
+  //     var option = '<option value="'+umlclass.id+'">'+umlclass.classname+'</option>'; 
+  //     $("#aumlclass-ass-start-select").append(option); // association start
+  //     $("#aumlclass-ass-end-select").append(option);   // association end
+  //   }
+  // }
 });
 
 
@@ -165,8 +165,17 @@ $("#offcanvasEditAssociationPanel").on('hide.bs.offcanvas', function(){
     // create a-association element
     $("a-scene").append(association_3d);
 
-    // LOCAL STORAGE
-    storageSetUMLassociation(idassociation, idumlclass_start, idumlclass_end);   
+    // GET _ID UMLCLASS
+    APIgetUMLclass(`${API_URL}/umlclass/id/${idumlclass_start}`, (data_start)=>{
+      id_umlclass_start_mongodb = data_start[0]._id; // from _id umlclasses
+      
+      APIgetUMLclass(`${API_URL}/umlclass/id/${idumlclass_end}`, (data_end)=>{
+        id_umlclass_end_mongodb = data_end[0]._id; // from _id umlclasses
+
+        // LOCAL STORAGE
+        storageSetUMLassociation(idassociation, idumlclass_start, idumlclass_end, id_umlclass_start_mongodb, id_umlclass_end_mongodb);
+      });
+    });       
   }
 });
 
@@ -188,8 +197,11 @@ $("#offcanvasScrolling, #offcanvasEditAssociationPanel, #offcanvasEdit3DModelPan
 // when offcanvas is opened 
 $("#offcanvasScrolling, #offcanvasEditAssociationPanel, #offcanvasEdit3DModelPanel").on('shown.bs.offcanvas', function(){
   $('#mainmenu').attr('style','display:none');     //show
-  $('#classmenu').attr('style','display:block');     //hidden
+  $('#classmenu').attr('style','display:block');     //hidden  
+});
 
+// when offcanvasEdit3DModelPanel is opened 
+$("#offcanvasEdit3DModelPanel").on('shown.bs.offcanvas', function(){
   const idumlclass = storageGetEditingAsset().id;
 
   APIgetUMLclass(`${API_URL}/umlclass/id/${idumlclass}` , function(data){
@@ -221,6 +233,27 @@ $("#offcanvasScrolling, #offcanvasEditAssociationPanel, #offcanvasEdit3DModelPan
   
 });
 
+// when offcanvasScrolling is opened 
+$("#offcanvasEditAssociationPanel").on('shown.bs.offcanvas', function(){
+  $("#aumlclass-ass-start-select").remove();
+  $("#aumlclass-ass-end-select").remove();
+
+  APIgetUMLclass(`${API_URL}/umlclass/vw?id=${VW_ID}` , function(data){
+    if(data.length > 0){
+      const selectstart = '<select id="aumlclass-ass-start-select" aria-label="" class="form-select"><option value=""></option></select>';
+      $("#aumlclass-section-ass-start .card-body").append(selectstart);
+
+      const selectend = '<select id="aumlclass-ass-end-select" aria-label="" class="form-select"><option value=""></option></select>';
+      $("#aumlclass-section-ass-end .card-body").append(selectend);
+
+      for(let umlclass of data){
+        var option = '<option value="'+umlclass.id+'">'+umlclass.classname+'</option>'; 
+        $("#aumlclass-ass-start-select").append(option); // association start
+        $("#aumlclass-ass-end-select").append(option);   // association end
+      }
+    }
+  });
+});
 
 
 // CHANGE VALUES FROM X,Y,Z POSITION, ROTATION, AND SCALE
