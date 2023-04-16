@@ -78,4 +78,81 @@
 
 //- Edit 3D Model Panel Offcanvas
 #offcanvasEdit3DModelPanel.offcanvas.offcanvas-end(data-bs-scroll='false', data-bs-backdrop='false', tabindex='-1', aria-labelledby='offcanvasEdit3DModelPanelLabel')
+  .offcanvas-header
+    h5#offcanvasEdit3DModelPanelLabel.offcanvas-title Edit 3D Model Panel
+    button.btn-close(type='button', data-bs-dismiss='offcanvas', aria-label='Close')
+  .offcanvas-body
+    form
+
+      //- COLOR
+      .card.mb-4(style='width: 100%;')
+        .card-header 
+          h5 Color
+        .card-body
+          //- label.form-label(for='exampleColorInput') Color picker
+          input#umlClassColor.form-control.form-control-color(type='color' value='#F49E02' title='Choose your color')
+        .card-footer
+          a(href="#") Reset
+                
+      //- POSITION
+      .card.mb-4(style='width: 100%;')
+        .card-header 
+          h5 Position
+        .card-body
+          .row 
+            label.form-label(for='pos_x_range')
+              h6 X
+          .row
+            .col-md-8
+              input#pos_x_range.form-range(type='range', min="-50", max="50", step="0.1")
+            .col-md-4
+              input#pos_x_text.form-control(type='text', data-aumlclass-class-name='', aria-describedby='textHelp', placeholder='0', maxlength='2')
+          .row 
+            label.form-label(for='pos_y_range')
+              h6 Y
+          .row
+            .col-md-8
+              input#pos_y_range.form-range(type='range', min="-50", max="50", step="0.1")
+            .col-md-4
+              input#pos_y_text.form-control(type='text', data-aumlclass-class-name='', aria-describedby='textHelp', placeholder='0', maxlength='2')
+          .row 
+            label.form-label(for='pos_z_range')
+              h6 Z
+          .row
+            .col-md-8
+              input#pos_z_range.form-range(type='range', min="-50", max="50", step="0.1")
+            .col-md-4
+              input#pos_z_text.form-control(type='text', data-aumlclass-class-name='', aria-describedby='textHelp', placeholder='0', maxlength='2')
+        .card-footer
+          a(href="#") Reset
+
+      //- ROTATION
+      .card.mb-4(style='width: 100%;')
+        .card-header
+          h5 Rotation
+        .card-body
+          .row
+            .col-md-8
+              input#rotation_range.form-range(type='range', min="-50", max="50", step="0.1")
+            .col-md-4
+              input#rotation_text.form-control(type='text', data-aumlclass-class-name='', aria-describedby='textHelp', placeholder='0', maxlength='2')
+        .card-footer
+          a(href="#") Reset
+
+      //- SCALE
+      .card.mb-4(style='width: 100%;')
+        .card-header
+          h5 Scale
+        .card-body
+        .row
+          .col-md-8
+            input#scale_range.form-range(type='range', min="-50", max="50", step="0.1")
+          .col-md-4
+            input#scale_text.form-control(type='text', data-aumlclass-class-name='', aria-describedby='textHelp', placeholder='0', maxlength='2')
+        .card-footer
+          a(href="#") Reset  
+      
+      //- DONE
+      .d-grid.gap-2.col-6.mx-auto.mt-5
+        button#bt-offcanvas-done.btn.btn-dark.btn-lg(type='button', data-bs-dismiss='offcanvas') Done
 //- Edit 3D Model Panel Offcanvas End

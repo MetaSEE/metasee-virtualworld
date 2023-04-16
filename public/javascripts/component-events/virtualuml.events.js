@@ -244,6 +244,9 @@ $('#umlClassColor').on('input change', function(){
   const editingasset = storageGetEditingAsset();        // get 3d model from storage
   const element = $("#"+editingasset.id+" a-box");      // select a-box
   element.attr('color',$(this).val());                  // change color
+
+  // change color
+  APIupdateUMLclass(`${API_URL}/umlclass/id/${editingasset.id}` , {"color":$(this).val()});
 });
 
 // DONE BUTTON
