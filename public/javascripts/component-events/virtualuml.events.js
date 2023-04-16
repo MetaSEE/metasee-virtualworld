@@ -247,7 +247,7 @@ $('#pos_z_range').on('input change', function(){
     "y":position.y,
     "z":$(this).val()
   }
-  APIupdateUMLclass(`${API_URL}/umlclass/id/${idumlclass}` , {"position":newposition}); //change position.y
+  APIupdateUMLclass(`${API_URL}/umlclass/id/${idumlclass}` , {"position":newposition}); //change position.z
 });
 
 // Rotation
@@ -256,7 +256,11 @@ $('#rotation_range').on('input change', function(){
   $('#rotation_text').val($(this).val());
 
   // update 3d element position
-  edit3Dmodel("rotation","",$(this).val(),storageGetEditingAsset().id);  
+  edit3Dmodel("rotation","",$(this).val(),storageGetEditingAsset().id); 
+  
+  // change rotation
+  const idumlclass = storageGetEditingAsset().id;
+  APIupdateUMLclass(`${API_URL}/umlclass/id/${idumlclass}` , {"rotation":{"y":$(this).val()}});
 });
 
 // Scale
@@ -266,6 +270,11 @@ $('#scale_range').on('input change', function(){
 
   // update 3d element position
   edit3Dmodel("scale","",$(this).val(),storageGetEditingAsset().id);  
+
+  // change scale
+  const idumlclass = storageGetEditingAsset().id;
+  const data = {"x":$(this).val(), "y":$(this).val(), "z":$(this).val()};
+  APIupdateUMLclass(`${API_URL}/umlclass/id/${idumlclass}` , {"scale":data});
 });
 
 
