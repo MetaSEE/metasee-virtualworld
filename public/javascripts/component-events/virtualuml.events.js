@@ -179,15 +179,46 @@ $('#addclass, #addassociation').click(function(){
   $('#classmenu').attr('style','display:block');  //show
 });
 
-// when offcanvas are closed
+// when offcanvas is closed
 $("#offcanvasScrolling, #offcanvasEditAssociationPanel, #offcanvasEdit3DModelPanel").on('hide.bs.offcanvas', function(){
   $('#mainmenu').attr('style','display:block');     //show
   $('#classmenu').attr('style','display:none');     //hidden
 });
 
+// when offcanvas is opened 
 $("#offcanvasScrolling, #offcanvasEditAssociationPanel, #offcanvasEdit3DModelPanel").on('shown.bs.offcanvas', function(){
   $('#mainmenu').attr('style','display:none');     //show
   $('#classmenu').attr('style','display:block');     //hidden
+
+  const idumlclass = storageGetEditingAsset().id;
+
+  APIgetUMLclass(`${API_URL}/umlclass/id/${idumlclass}` , function(data){
+    // COLOR
+    $("#umlClassColor").val(data[0].color);
+
+    // POSITION
+    //change input type=range and type=text
+    // X
+    $("#pos_x_text").val(data[0].position.x);
+    $("#pos_x_range").val(data[0].position.x);
+    // Y
+    $("#pos_y_text").val(data[0].position.y);
+    $("#pos_y_range").val(data[0].position.y);
+    // Z
+    $("#pos_z_text").val(data[0].position.z);
+    $("#pos_z_range").val(data[0].position.z);
+
+    // ROTATION
+    //change input type=range and type=text
+    $("#rotation_text").val(data[0].position.y);
+    $("#rotation_range").val(data[0].position.y);
+
+    // SCALE
+    //change input type=range and type=text
+    $("#scale_text").val(data[0].position.x);
+    $("#scale_range").val(data[0].position.x);
+  });
+  
 });
 
 

@@ -80,6 +80,18 @@ function createUmlclassEntity(data) {
 }
 // LOAD UMLCLASS - END
 
+// GET UMLCLASS
+function APIgetUMLclass(url, callback){
+  $.getJSON(url)
+    .done((data)=>{ 
+      callback(data);
+    })
+    .fail(()=>{})
+    .always(()=>{})
+  ;
+}
+// GET UMLCLASS - END
+
 // DELETE UMLCLASS
 function APIdeleteUMLclass(url){
   $.ajax({
