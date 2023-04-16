@@ -72,8 +72,14 @@
           h5.card-title Association End
           select#aumlclass-ass-end-select.form-select(aria-label='')
             option(selected='', value='')
-      .d-grid.gap-2.col-6.mx-auto
-        button#bt-offcanvas-ass-done.btn.btn-dark.btn-lg(type='button', data-bs-dismiss='offcanvas') Done
+      //- DELETE AND DONE BUTTONS
+      .row.mb-2
+        .col.col-md-6
+          .d-grid.gap-2.col-12.mx-auto
+            button#bt-deleteumlassociation.btn.btn-danger.btn-lg(type='button') Delete
+        .col.col-md-6
+          .d-grid.gap-2.col-12.mx-auto
+            button#bt-offcanvas-ass-done.btn.btn-dark.btn-lg(type='button', data-bs-dismiss='offcanvas') Done 
 //- Edit Association Panel Offcanvas End
 
 //- Edit 3D Model Panel Offcanvas
