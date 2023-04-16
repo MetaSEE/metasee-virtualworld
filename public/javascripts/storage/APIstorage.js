@@ -51,32 +51,16 @@ function APIupdateUMLclass(url, data){
 // UPDATE UMLCLASS - END
 
 // LOAD UMLCLASS
-function APIloadUMclass(url){
+function APIloadUMclass(url , callback){
 
   $.getJSON(url)
     .done((data)=>{ 
+      callback(data);
       // resp = data;
-      for(let umlclass of data){
-        createUmlclassEntity(umlclass)
-      }
     })
     .fail(()=>{})
     .always(()=>{})
   ;
-}
-
-// create an a-umlclass element
-function createUmlclassEntity(data) {
-  const scene = document.querySelector('a-scene');
-  const el = document.createElement('a-umlclass');
-  el.setAttribute('id', data.id);
-  el.setAttribute('classname', data.classname);
-  el.setAttribute('position', data.position);
-  el.setAttribute('rotation', data.rotation);
-  el.setAttribute('scale', data.scale);
-  el.setAttribute('color', data.color);
-
-  scene.append(el);
 }
 // LOAD UMLCLASS - END
 
@@ -129,10 +113,10 @@ function APIcreateUMLassociation(url, data){
 // CREATE UML ASSOCIATION - END
 
 // LOAD UML ASSOCIATION
-function APIloadUMLassociation(url){
+function APIloadUMLassociation(url , callback){
   $.getJSON(url)
     .done((data)=>{ 
-      
+      callback(data);
     })
     .fail(()=>{})
     .always(()=>{})

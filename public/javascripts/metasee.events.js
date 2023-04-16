@@ -18,7 +18,7 @@ function htmlPositionToArray(htmlposition){
 }
 // Basic Functions End
 
-// I DONT KNOW WAHT IS THIS BELOW !!!
+// THIS FUNCTION IS TO SET Position, Rotation, and Scale FROM RANGE INPUT OF EDID 3D MODEL PANEL
 // Edit Position, Rotation, and Scale
 function edit3Dmodel(type, axis, value, id){
   const asset = id;

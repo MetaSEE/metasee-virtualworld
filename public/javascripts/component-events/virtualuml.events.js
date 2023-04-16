@@ -1,6 +1,42 @@
 // LOAD UMLCLASS
-APIloadUMclass(`${API_URL}/umlclass/vw?id=${VW_ID}`);
+APIloadUMclass(`${API_URL}/umlclass/vw?id=${VW_ID}` , (data_umlclass)=>{
+  for(let umlclass of data_umlclass){
+    createUMLclassEntity(umlclass);
+  }
+});
+
+// create an a-umlclass element
+function createUMLclassEntity(data) {
+  const scene = document.querySelector('a-scene');
+  const el = document.createElement('a-umlclass');
+  el.setAttribute('id', data.id);
+  el.setAttribute('classname', data.classname);
+  el.setAttribute('position', data.position);
+  el.setAttribute('rotation', data.rotation);
+  el.setAttribute('scale', data.scale);
+  el.setAttribute('color', data.color);
+
+  scene.append(el);
+}
 // LOAD UMLCLASS - END
+
+// LOAD UML ASSOCIATIONS
+APIloadUMLassociation(`${API_URL}/umlassociation/search?vw=${VW_ID}` , (data_umlassociation)=>{
+  createUMLassociationEntity(data_umlassociation);
+});
+
+function createUMLassociationEntity(data){
+  for(let umlassociation of data){
+    const scene = document.querySelector('a-scene');
+    const el = document.createElement('a-association');
+    el.setAttribute('id', umlassociation.id);
+    el.setAttribute('start', `#${umlassociation.umlclass_start.id}`);
+    el.setAttribute('end', `#${umlassociation.umlclass_end.id}`);
+
+    scene.append(el);
+  }
+}
+// LOAD UML ASSOCIATIONS - END  
 
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -408,38 +444,3 @@ $("#bt-deleteumlclass").click(function(){
     storageDeleteUMLclassById(idumlclass);
   }
 });
-
-// $("#exampleModal")
-//   // .click().addClass('modal-open')
-
-//   .on('shown.bs.modal', function () {
-//     // $("body").removeClass("modal-open");
-//     // $("body").removeAttr("style");
-//     // $("body").addClass("modal-dialog");		
-//   });
-//   // .on('hidden.bs.modal', function () {
-//   //   $("body").removeClass("modal-dialog");
-//   // });
-
-// $("#addclass")
-//   .click(function(){
-//     $('#exampleModal')
-//       .removeClass("show")
-//       .removeAttr('style')
-//       .attr('style','display:none')
-//       .removeAttr('aria-modal')
-//       .removeAttr('role')
-//       .attr('aria-hidden','true');
-      
-//     $("body")
-//       .removeClass("modal-open")
-//       .removeAttr('style');
-//   });
-
-
-// $("#offcanvasScrolling")
-//   .on('shown.bs.offcanvas', function(){
-//     // alert('offcanvasScrolling');
-//     // $("body").removeAttr("style");
-//   })
-
