@@ -1,5 +1,4 @@
 // DEFAULT SETTINGS
-
 // get current URL
 const URL = $(location).attr('href');
 
@@ -10,8 +9,6 @@ const decodedURL = URL.split("/");
 const VW_ID = decodedURL[decodedURL.length-1];
 
 const API_URL = `http://localhost:3333`;
-const API_VIRTUALWORLDS = `${API_URL}/virtualworld/${VW_ID}`;
-
 // DEFAULT SETTINGS - END
 
 
@@ -52,3 +49,39 @@ function APIupdateUMLclass(url, data){
   });
 }
 // UPDATE UMLCLASS - END
+
+// LOAD UMLCLASS
+function APIloadUMclass(url){
+
+  $.getJSON(url)
+    .done((data)=>{ 
+      // resp = data;
+      for(let umlclass of data){
+        createUmlclassEntity(umlclass)
+      }
+    })
+    .fail(()=>{})
+    .always(()=>{})
+  ;
+}
+
+// create an a-umlclass element
+function createUmlclassEntity(data) {
+  const scene = document.querySelector('a-scene');
+  const el = document.createElement('a-umlclass');
+  el.setAttribute('id', data.id);
+  el.setAttribute('classname', data.classname);
+  el.setAttribute('position', data.position);
+  el.setAttribute('rotation', data.rotation);
+  el.setAttribute('scale', data.scale);
+  el.setAttribute('color', data.color);
+
+  scene.append(el);
+}
+
+
+
+
+
+
+// LOAD UMLCLASS - END

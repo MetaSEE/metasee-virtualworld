@@ -1,5 +1,5 @@
 // LOAD AND SET ENVIRONMENT (BACKGROUND)
-$.getJSON(API_VIRTUALWORLDS)
+$.getJSON(`${API_URL}/virtualworld/${VW_ID}`)
   .done((data)=>{ 
     setEnvironment(data.environment);
   })
