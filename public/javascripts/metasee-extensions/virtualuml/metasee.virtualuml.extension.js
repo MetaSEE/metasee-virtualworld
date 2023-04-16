@@ -386,9 +386,7 @@ AFRAME.registerComponent('a-association-component', {
   },
 
   events: {
-    click: function (evt) {
-      // console.log('This assos was clicked!');
-      
+    click: function (evt) {     
       // OPEN OFFCANVAS
       var myOffcanvas = document.getElementById('offcanvasEditAssociationPanel')
       evt.stopPropagation();
@@ -396,16 +394,18 @@ AFRAME.registerComponent('a-association-component', {
       bsOffcanvas.show();
             
       // UPDATE OFFCANVAS WITH UML ASSOCIATION DATA  
-      const ass_classstart_select = document.querySelector("#aumlclass-ass-start-select");
-      const ass_classsend_select = document.querySelector("#aumlclass-ass-end-select");
-      ass_classstart_select.value = this.data.start.getAttribute('id');
-      ass_classsend_select.value = this.data.end.getAttribute('id');
+      // const ass_classstart_select = document.querySelector("#aumlclass-ass-start-select");
+      // const ass_classsend_select = document.querySelector("#aumlclass-ass-end-select");
+      // ass_classstart_select.value = this.data.start.getAttribute('id');
+      // ass_classsend_select.value = this.data.end.getAttribute('id');
 
       // SHOWN AND HIDDEN MENUS
       shownAndHiddenMenus();
 
       // ENABLE IT FOR EDITING
       storageSetEditingAsset('umlassociation',this.data.id);
+
+      console.log('This association was clicked!' , this.data.id);
     }
   }
   

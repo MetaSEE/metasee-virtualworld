@@ -231,7 +231,7 @@ $("#offcanvasScrolling, #offcanvasEditAssociationPanel, #offcanvasEdit3DModelPan
 });
 
 // when offcanvas is opened 
-$("#offcanvasScrolling, #offcanvasEditAssociationPanel, #offcanvasEdit3DModelPanel").on('shown.bs.offcanvas', function(){
+$("#offcanvasScrolling, #offcanvasEditAssociationPanel, #offcanvasEdit3DModelPanel").on('shown.bs.offcanvas', function(){ 
   $('#mainmenu').attr('style','display:none');     //show
   $('#classmenu').attr('style','display:block');     //hidden  
 });
@@ -274,6 +274,7 @@ $("#offcanvasEditAssociationPanel").on('shown.bs.offcanvas', function(){
   $("#aumlclass-ass-start-select").remove();
   $("#aumlclass-ass-end-select").remove();
 
+  // List the uml associations
   APIgetUMLclass(`${API_URL}/umlclass/vw?id=${VW_ID}` , function(data){
     if(data.length > 0){
       const selectstart = '<select id="aumlclass-ass-start-select" aria-label="" class="form-select"><option value=""></option></select>';
@@ -289,6 +290,26 @@ $("#offcanvasEditAssociationPanel").on('shown.bs.offcanvas', function(){
       }
     }
   });
+
+  // verify if some uml assocition is editing
+  // in the case yes, show the uml classes
+  if(storageGetEditingAsset().type=="umlassociation"){
+    const id_assoc = storageGetEditingAsset().id;
+
+    // UPDATE OFFCANVAS WITH UML ASSOCIATION DATA  
+    const ass_classstart_select = document.querySelector("#aumlclass-ass-start-select");
+    const ass_classsend_select = document.querySelector("#aumlclass-ass-end-select");
+
+    APIloadUMLassociation(`${API_URL}/umlassociation/id/${id_assoc}` , (data)=>{
+      for(let assoc of data){
+        setTimeout(()=>{
+          $("#aumlclass-ass-start-select").val(assoc.umlclass_start.id);
+          $("#aumlclass-ass-end-select").val(assoc.umlclass_end.id);
+        }, 5);
+      }
+    });
+  }
+  
 });
 
 
