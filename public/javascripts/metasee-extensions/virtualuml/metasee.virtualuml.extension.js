@@ -405,7 +405,7 @@ AFRAME.registerComponent('a-association-component', {
       // ENABLE IT FOR EDITING
       storageSetEditingAsset('umlassociation',this.data.id);
 
-      console.log('This association was clicked!' , this.data.id);
+      // console.log('This association was clicked!' , this.data.id);
     }
   }
   
