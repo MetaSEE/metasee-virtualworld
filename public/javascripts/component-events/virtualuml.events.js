@@ -200,6 +200,16 @@ $('#pos_x_range').on('input change', function(){
 
   // update 3d element position
   edit3Dmodel("position","x",$(this).val(),storageGetEditingAsset().id);
+
+  // change position
+  const idumlclass = storageGetEditingAsset().id;
+  const position = $("#"+idumlclass).attr('position');
+  const newposition = {
+    "x":$(this).val(),
+    "y":position.y,
+    "z":position.z
+  }
+  APIupdateUMLclass(`${API_URL}/umlclass/id/${idumlclass}` , {"position":newposition}); //change position.x
 });
 
 // Y
@@ -209,6 +219,16 @@ $('#pos_y_range').on('input change', function(){
 
   // update 3d element position
   edit3Dmodel("position","y",$(this).val(),storageGetEditingAsset().id);
+
+  // change position
+  const idumlclass = storageGetEditingAsset().id;
+  const position = $("#"+idumlclass).attr('position');
+  const newposition = {
+    "x":position.x,
+    "y":$(this).val(),
+    "z":position.z
+  }
+  APIupdateUMLclass(`${API_URL}/umlclass/id/${idumlclass}` , {"position":newposition}); //change position.y
 });
 
 // Z
@@ -218,6 +238,16 @@ $('#pos_z_range').on('input change', function(){
 
   // update 3d element position
   edit3Dmodel("position","z",$(this).val(),storageGetEditingAsset().id);  
+
+  // change position
+  const idumlclass = storageGetEditingAsset().id;
+  const position = $("#"+idumlclass).attr('position');
+  const newposition = {
+    "x":position.x,
+    "y":position.y,
+    "z":$(this).val()
+  }
+  APIupdateUMLclass(`${API_URL}/umlclass/id/${idumlclass}` , {"position":newposition}); //change position.y
 });
 
 // Rotation
