@@ -46,7 +46,7 @@ function storageRenameUMLclass(id, classname){
   // var umlclass = storageFindUMLclassById(id);
 
   // delete it from UMLCLASSES
-  storageDeleteUMLclassById(id);
+  storageDeleteUMLclassByIdOnlyLocalStorage(id);
 
   // add it with new data in UMLCLASSES
   storageSetUMLclassOnlyLocalStorage(id, classname);
@@ -68,7 +68,7 @@ function storageFindUMLclassById(id){
 }
 
 // DELETE UML CLASS
-function storageDeleteUMLclassById(id){
+function storageDeleteUMLclassByIdOnlyLocalStorage(id){
   var index;
 
   for(var i=0; i<UMLCLASSES.length; i++){
@@ -78,6 +78,10 @@ function storageDeleteUMLclassById(id){
   }
 
   UMLCLASSES.splice(index, 1);
+}
+
+function storageDeleteUMLclassById(id){
+  APIdeleteUMLclass(`${API_URL}/umlclass/id/${id}`);
 }
 
 

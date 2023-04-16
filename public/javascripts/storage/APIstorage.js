@@ -78,10 +78,20 @@ function createUmlclassEntity(data) {
 
   scene.append(el);
 }
-
-
-
-
-
-
 // LOAD UMLCLASS - END
+
+// DELETE UMLCLASS
+function APIdeleteUMLclass(url){
+  $.ajax({
+    url: url, // URL da API para excluir o item com o ID específico
+    type: "DELETE",
+    success: function(data){
+      // console.log("Item excluído com sucesso!");
+      // Aqui você pode adicionar ações adicionais após a exclusão bem-sucedida, se necessário
+    },
+    error: function(err){
+      console.error("Erro ao excluir o item:", err);
+    }
+  });
+}
+// DELETE UMLCLASS - END

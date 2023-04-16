@@ -258,9 +258,12 @@ $("#bt-offcanvas-done").click(()=>{
 // DELETE UMLCLASS
 $("#bt-deleteumlclass").click(function(){
   const idumlclass = storageGetEditingAsset().id;
-  const umlclass = storageFindUMLclassById(idumlclass);
+  const classname = $("#"+idumlclass).attr('classname');
 
-  const resp = confirm('Are you sure delete "'+umlclass.classname+'"?');
+  console.log('idumlclass' , idumlclass);
+  console.log('umlclass' , classname);
+
+  const resp = confirm('Are you sure delete "'+classname+'"?');
 
   if(resp){
     // CLOSE EDIT UML CLASS PANEL
@@ -270,7 +273,7 @@ $("#bt-deleteumlclass").click(function(){
 
     // SHOW TOAST
     //change content
-    $("#UMLclassDeletedToast .toast-body").html("<b>"+umlclass.classname+"</b> deleted successfully!");
+    $("#UMLclassDeletedToast .toast-body").html("<b>"+classname+"</b> deleted successfully!");
 
     // show toast
     const toast = new bootstrap.Toast($("#UMLclassDeletedToast"));
