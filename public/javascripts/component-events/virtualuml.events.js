@@ -21,9 +21,12 @@ function createUMLclassEntity(data) {
 // LOAD UMLCLASS - END
 
 // LOAD UML ASSOCIATIONS
-APIloadUMLassociation(`${API_URL}/umlassociation/search?vw=${VW_ID}` , (data_umlassociation)=>{
-  createUMLassociationEntity(data_umlassociation);
-});
+setTimeout(() => {
+  APIloadUMLassociation(`${API_URL}/umlassociation/search?vw=${VW_ID}` , (data_umlassociation)=>{
+    createUMLassociationEntity(data_umlassociation);
+  });
+}, 10);
+
 
 function createUMLassociationEntity(data){
   for(let umlassociation of data){
@@ -475,7 +478,7 @@ $("#bt-deleteumlclass").click(function(){
         if(umlassoc.umlclass_start.id == idumlclass || umlassoc.umlclass_end.id == idumlclass){
           storageDeleteUMLassociationById(umlassoc.id);
           $("#"+umlassoc.id).remove();
-          
+
           // DELETE UML CLASS FROM VIRTUAL WORLD
           $("#"+idumlclass).remove();
 
