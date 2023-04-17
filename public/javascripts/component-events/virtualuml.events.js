@@ -197,9 +197,6 @@ $("#offcanvasEditAssociationPanel").on('hide.bs.offcanvas', function(){
     
     // create association with uml class start and end
     const association_3d = "<a-association id='"+idassociation+"' start='#"+idumlclass_start+"' end='#"+idumlclass_end+"'></a-association>";
-    
-    // create a-association element
-    $("a-scene").append(association_3d);
 
     // GET _ID UMLCLASS
     APIgetUMLclass(`${API_URL}/umlclass/id/${idumlclass_start}`, (data_start)=>{
@@ -208,8 +205,30 @@ $("#offcanvasEditAssociationPanel").on('hide.bs.offcanvas', function(){
       APIgetUMLclass(`${API_URL}/umlclass/id/${idumlclass_end}`, (data_end)=>{
         id_umlclass_end_mongodb = data_end[0]._id; // from _id umlclasses
 
-        // LOCAL STORAGE
-        storageSetUMLassociation(idassociation, idumlclass_start, idumlclass_end, id_umlclass_start_mongodb, id_umlclass_end_mongodb);
+        // first, verify if a-association exists
+        // if yes, dot not create it
+        // if not, create it
+        // $("a-scene").append(association_3d);
+        if(storageGetEditingAsset().type == "umlassociation"){
+          const idassociation_editing = storageGetEditingAsset().id;
+          APIloadUMLassociation(`${API_URL}/umlassociation/id/${idassociation_editing}` , (data)=>{
+            for(let umlassoc of data){
+              if(idumlclass_start == umlassoc.umlclass_start.id && idumlclass_end == umlassoc.umlclass_end.id){
+                console.log('tem associação');
+              }else{
+                // CREATE A-ASSOCIATION ELEMENT
+                $("a-scene").append(association_3d);
+
+                // LOCAL AND API STORAGE
+                storageSetUMLassociation(idassociation, idumlclass_start, idumlclass_end, id_umlclass_start_mongodb, id_umlclass_end_mongodb);
+
+                console.log('saving');
+              }
+            }
+          });
+
+
+        }
       });
     });       
   }
