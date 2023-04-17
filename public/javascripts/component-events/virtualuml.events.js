@@ -423,8 +423,8 @@ $("#bt-deleteumlclass").click(function(){
   const idumlclass = storageGetEditingAsset().id;
   const classname = $("#"+idumlclass).attr('classname');
 
-  console.log('idumlclass' , idumlclass);
-  console.log('umlclass' , classname);
+  // console.log('idumlclass' , idumlclass);
+  // console.log('umlclass' , classname);
 
   const resp = confirm('Are you sure delete "'+classname+'"?');
 
@@ -463,5 +463,35 @@ $("#bt-deleteumlclass").click(function(){
     // LOCAL STORAGE
     // delete umlclass
     storageDeleteUMLclassById(idumlclass);
+  }
+});
+
+// DELETE UML ASSOCIATION
+$("#bt-deleteumlassociation").click(function(){
+  const idumlassociation = storageGetEditingAsset().id;
+  // const classname = $("#"+idumlclass).attr('classname');
+
+  const resp = confirm('Are you sure delete this association?');
+
+  if(resp){
+    // CLOSE EDIT UML CLASS PANEL
+    var myOffcanvas = document.getElementById('offcanvasEditAssociationPanel');
+    var bsOffcanvas = bootstrap.Offcanvas.getInstance(myOffcanvas);
+    bsOffcanvas.hide();
+
+    // SHOW TOAST
+    //change content
+    $("#UMLassociationDeletedToast .toast-body").html("<b>Association</b> deleted successfully!");
+
+    // show toast
+    const toast = new bootstrap.Toast($("#UMLassociationDeletedToast"));
+    toast.show();
+
+    // DELETE UML CLASS FROM VIRTUAL WORLD
+    $("#"+idumlassociation).remove();
+
+    // LOCAL STORAGE
+    // delete umlassociation
+    storageDeleteUMLassociationById(idumlassociation);
   }
 });
