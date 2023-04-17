@@ -18,7 +18,11 @@ function htmlPositionToArray(htmlposition){
 }
 // Basic Functions End
 
+<<<<<<< HEAD
 // THIS FUNCTION IS TO SET Position, Rotation, and Scale FROM RANGE INPUT OF EDID 3D MODEL PANEL
+=======
+// I DONT KNOW WAHT IS THIS BELOW !!!
+>>>>>>> 2d9ee3850e676fa65bef45b611cd2d3ed9237b44
 // Edit Position, Rotation, and Scale
 function edit3Dmodel(type, axis, value, id){
   const asset = id;
@@ -63,3 +67,37 @@ function edit3Dmodel(type, axis, value, id){
 }
 // Edit Position, Rotation, and Scale End
 
+<<<<<<< HEAD
+=======
+// 3D Interface 
+// Add UML class in the scene
+$("#addclass")  
+  .click(function(){ 
+  
+    const min = -3;
+    const max = 3;
+    const dec = 2;
+    let pos_x = random_3d_position(min,max,dec);
+    let pos_y = random_3d_position(0,max,dec);
+    let pos_z = random_3d_position(min,max,dec);
+    
+    // generate an id
+    const idclass = "umlclass-"+unique_number();
+
+    // generate an a-umlclass element
+    const aumlclass = "<a-umlclass id='"+idclass+"' classname='Class name' position='"+pos_x+" "+pos_y+" "+pos_z+"'></a-umlclass>";
+    
+    // add a-umlclass element
+    $("a-scene").append(aumlclass); 
+  
+    // attribute id to data-aumlclass-class-name and open offcanvas
+    $('#aumlclass-class-name')
+      .attr('data-aumlclass-class-name',idclass);
+
+    // LOCAL STORAGE - ADD CLASS
+    // storageSetUMLclass(idclass,'Class name');
+  });
+
+
+// 3D Iterface End
+>>>>>>> 2d9ee3850e676fa65bef45b611cd2d3ed9237b44
