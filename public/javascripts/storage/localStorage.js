@@ -117,7 +117,7 @@ function storageGetUMLassociation(){
 // RENAME UML ASSOCIATION
 function storageRenameUMLassociation(id, startumlclass, endumlclass){
   // delete it from UMLCLASSES
-  storageDeleteUMLassociationById(id);
+  storageDeleteUMLassociationByIdOnlyLocalStorage(id);
 
   // add it with new data in UMLCLASSES
   storageSetUMLassociationOnlyLocalStorage(id, startumlclass, endumlclass);
@@ -138,6 +138,12 @@ function storageFindUMLassociationById(id){
 
 // DELETE UML ASSOCIATION BY ID
 function storageDeleteUMLassociationById(id){
+  console.log('delete');
+
+  APIdeleteUMLclass(`${API_URL}/umlassociation/id/${id}`);
+}
+
+function storageDeleteUMLassociationByIdOnlyLocalStorage(id){
   var index;
 
   for(var i=0; i<UMLASSOCIATIONS.length; i++){

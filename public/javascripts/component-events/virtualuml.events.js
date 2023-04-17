@@ -226,8 +226,12 @@ $("#offcanvasEditAssociationPanel").on('hide.bs.offcanvas', function(){
               }
             }
           });
+        }else{
+          // CREATE A-ASSOCIATION ELEMENT
+          $("a-scene").append(association_3d);
 
-
+          // LOCAL AND API STORAGE
+          storageSetUMLassociation(idassociation, idumlclass_start, idumlclass_end, id_umlclass_start_mongodb, id_umlclass_end_mongodb);
         }
       });
     });       
@@ -462,26 +466,25 @@ $("#bt-deleteumlclass").click(function(){
     toast.show();
 
     // DELETE ASSOCIATION
-    const deleteAssociations = [];
-    const umlassociations = storageGetUMLassociation();
+    // select if has startclass_start
+    // select if has startclass_end
+    // if yes, remove uml association
+    //PAREI AQUI
+    APIloadUMLassociation(`${API_URL}/umlassociation/search?vw=${VW_ID}` , (umlassociations)=>{
+      for(let umlassoc of umlassociations){
+        if(umlassoc.umlclass_start.id == idumlclass || umlassoc.umlclass_end.id == idumlclass){
+          storageDeleteUMLassociationById(umlassoc.id);
+          $("#"+umlassoc.id).remove();
+          
+          // DELETE UML CLASS FROM VIRTUAL WORLD
+          $("#"+idumlclass).remove();
 
-    for(var ass of umlassociations){
-      if(ass.startumlclass == idumlclass || ass.endumlclass == idumlclass){
-        $("#"+ass.id).remove();
-        deleteAssociations.push(ass.id);
+          // LOCAL STORAGE
+          // delete umlclass
+          storageDeleteUMLclassById(idumlclass);          
+        }
       }
-    }
-
-    for(var del of deleteAssociations){
-      storageDeleteUMLassociationById(del.id);
-    }
-
-    // DELETE UML CLASS FROM VIRTUAL WORLD
-    $("#"+idumlclass).remove();
-
-    // LOCAL STORAGE
-    // delete umlclass
-    storageDeleteUMLclassById(idumlclass);
+    });
   }
 });
 
