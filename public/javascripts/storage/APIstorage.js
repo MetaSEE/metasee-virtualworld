@@ -109,8 +109,6 @@ function APIcreateUMLassociation(url, data){
       // Lógica a ser executada em caso de erro na solicitação
     }
   });
-
-  console.log('here');
 }
 // CREATE UML ASSOCIATION - END
 

@@ -138,8 +138,6 @@ function storageFindUMLassociationById(id){
 
 // DELETE UML ASSOCIATION BY ID
 function storageDeleteUMLassociationById(id){
-  console.log('delete');
-
   APIdeleteUMLclass(`${API_URL}/umlassociation/id/${id}`);
 }
 
