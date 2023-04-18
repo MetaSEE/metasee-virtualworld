@@ -7,7 +7,6 @@
 var app = require('../app');
 var debug = require('debug')('metasee-virtualworld:server');
 var http = require('http');
-var cors = require("cors");
 
 /**
  * Get port from environment and store in Express.
@@ -21,27 +20,6 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
-
-/**
- * CORS configuration.
-*/
-
-const domainsFromEnv = process.env.CORS_DOMAINS || "https://metasee-api.herokuapp.com,https://metasee-api.herokuapp.com"
-
-const whitelist = domainsFromEnv.split(",").map(item => item.trim())
-
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error("Not allowed by CORS"))
-    }
-  },
-  credentials: true,
-}
-app.use(cors(corsOptions))
-
 
 // Networked-Aframe
 // Start Socket.io so it attaches itself to Express server
