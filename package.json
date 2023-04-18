@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www",
+    "start": "node ./bin/www",
     "build": "webpack --config webpack.config.js",
     "dev": "npm run build && npm run start",
     "postinstall": "npm run build"
