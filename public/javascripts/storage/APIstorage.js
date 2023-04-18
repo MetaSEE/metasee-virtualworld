@@ -9,7 +9,7 @@ const decodedURL = URL.split("/");
 const VW_ID = decodedURL[decodedURL.length-1];
 
 // const API_URL = `http://localhost:3333`;
-const API_URL = `https://bcfh5v7dz4.execute-api.sa-east-1.amazonaws.com/master/`;
+const API_URL = `https://metasee-api.herokuapp.com`;
 // DEFAULT SETTINGS - END
 
 
