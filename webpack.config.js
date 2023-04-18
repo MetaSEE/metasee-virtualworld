@@ -6,5 +6,9 @@ module.exports = {
     output: {
         path: __dirname + "/public/javascripts/",
         filename: "bundle.js"
+    },
+    mode: 'production',
+    performance: {
+        hints: false
     }
 };
