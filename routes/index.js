@@ -4,7 +4,7 @@ var http = require('http');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.send('Please, select a Virtual World and enjoy!');
+  res.status(200).send('Please, select a Virtual World and enjoy!');
 });
 
 // const API_URL = `http://localhost:3333`;
@@ -35,5 +35,7 @@ router.get('/:id', (req, res, next)=>{
     res.redirect('/');
   });
 });
+
+module.exports = router;
 
 module.exports = router;
