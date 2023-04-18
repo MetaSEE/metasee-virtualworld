@@ -5,8 +5,7 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "build": "webpack --config webpack.config.js",
-    "dev": "npm run build && npm run start",
-    "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress"
+    "dev": "npm run build && npm run start"
   },
   "dependencies": {
     "aframe": "^1.4.1",

@@ -8,6 +8,7 @@ router.get('/', function(req, res, next) {
 });
 
 const API_URL = `http://localhost:3333`;
+// const API_URL = `https://bcfh5v7dz4.execute-api.sa-east-1.amazonaws.com/master/`;
 
 router.get('/:id', (req, res, next)=>{
   const API = `${API_URL}/virtualworld/${req.params.id}`;
