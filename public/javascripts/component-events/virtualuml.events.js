@@ -548,27 +548,37 @@ $("#bt-deleteumlassociation").click(function(){
   const idumlassociation = storageGetEditingAsset().id;
   // const classname = $("#"+idumlclass).attr('classname');
 
-  const resp = confirm('Are you sure delete this association?');
+  const classstart = $("#aumlclass-ass-start-select").val();
+  const classend = $("#aumlclass-ass-end-select").val();
 
-  if(resp){
-    // CLOSE EDIT UML CLASS PANEL
-    var myOffcanvas = document.getElementById('offcanvasEditAssociationPanel');
-    var bsOffcanvas = bootstrap.Offcanvas.getInstance(myOffcanvas);
-    bsOffcanvas.hide();
+  if(classstart != "" &&  classend != ""){
 
-    // SHOW TOAST
-    //change content
-    $("#UMLassociationDeletedToast .toast-body").html("<b>Association</b> deleted successfully!");
+    const resp = confirm('Are you sure delete this association?');
 
-    // show toast
-    const toast = new bootstrap.Toast($("#UMLassociationDeletedToast"));
-    toast.show();
+    if(resp){
+      // CLOSE EDIT UML CLASS PANEL
+      var myOffcanvas = document.getElementById('offcanvasEditAssociationPanel');
+      var bsOffcanvas = bootstrap.Offcanvas.getInstance(myOffcanvas);
+      bsOffcanvas.hide();
 
-    // DELETE UML CLASS FROM VIRTUAL WORLD
-    $("#"+idumlassociation).remove();
+      // SHOW TOAST
+      //change content
+      $("#UMLassociationDeletedToast .toast-body").html("<b>Association</b> deleted successfully!");
 
-    // LOCAL STORAGE
-    // delete umlassociation
-    storageDeleteUMLassociationById(idumlassociation);
+      // show toast
+      const toast = new bootstrap.Toast($("#UMLassociationDeletedToast"));
+      toast.show();
+
+      // DELETE UML CLASS FROM VIRTUAL WORLD
+      $("#"+idumlassociation).remove();
+
+      // LOCAL STORAGE
+      // delete umlassociation
+      storageDeleteUMLassociationById(idumlassociation);
+    }
+
+  }else{
+    alert("There are no associations!");
   }
+
 });
