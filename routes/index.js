@@ -7,8 +7,8 @@ router.get('/', function(req, res, next) {
   res.status(200).send('Please, select a Virtual World and enjoy!');
 });
 
-// const API_URL = `http://localhost:3333`;
-const API_URL = `http://metasee-api.herokuapp.com`;
+const API_URL = `http://localhost:3333`;
+// const API_URL = `http://metasee-api.herokuapp.com`;
 // const API_URL = `https://bcfh5v7dz4.execute-api.sa-east-1.amazonaws.com/master/`;
 
 router.get('/:id', (req, res, next)=>{
