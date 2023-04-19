@@ -142,7 +142,8 @@ $("#offcanvasScrolling").on('shown.bs.offcanvas	', function(){
   // CLOSE EDIT 3D MODEL PANEL
   var myOffcanvas = document.getElementById('offcanvasEdit3DModelPanel');
   var bsOffcanvas = bootstrap.Offcanvas.getInstance(myOffcanvas); 
-  if(bsOffcanvas){
+  
+  if(bsOffcanvas != null && bsOffcanvas._isShown){
     bsOffcanvas.hide();
     
     //load data from new class

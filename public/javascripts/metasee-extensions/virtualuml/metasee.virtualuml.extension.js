@@ -44,6 +44,9 @@ AFRAME.registerComponent('a-umlclass-component', {
   events: {
     click: function (evt) {
       // console.log('This entity was clicked!');
+      // var myoffcanvasEdit3DModelPanel = document.getElementById('offcanvasEdit3DModelPanel');
+      // var bsoffcanvasEdit3DModelPanel = bootstrap.Offcanvas.getInstance(myoffcanvasEdit3DModelPanel); 
+      // bsoffcanvasEdit3DModelPanel.hide();
       
       // OPEN OFFCANVAS
       var myOffcanvas = document.getElementById('offcanvasScrolling')
