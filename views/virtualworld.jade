@@ -27,8 +27,8 @@ a-scene(
   //- Assets End
   
   //- Avatar
-  a-entity(id="rig" spawn-in-circle="radius:3" networked="template:#rig-template;")
-    a-entity(
+  a-entity(id="rig" spawn-in-circle="radius:3" networked="template:#rig-template;" camera-listener) 
+    a-camera(
       id="player"
       camera
       position="0 2.5 0"

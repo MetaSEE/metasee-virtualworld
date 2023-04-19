@@ -46,24 +46,16 @@ function createUMLassociationEntity(data){
 // 3D INTERFACE
 /////////////////////////////////////////////////////////////////////////////////////
 
-
 // ADD UML CLASS IN THE SCENE /////////////////////////////////////////////
 $("#addclass")  
-  .click(function(){ 
-  
-    const min = -3;
-    const max = 3;
-    const dec = 2;
-    let pos_x = random_3d_position(min,max,dec);
-    let pos_y = random_3d_position(0,max,dec);
-    let pos_z = random_3d_position(min,max,dec);
-    let position = {x:pos_x, y:pos_y, z:pos_z}
+  .click(function(){      
     
     // generate an id
     const idclass = "umlclass-"+unique_number();
 
     // generate an a-umlclass element
-    const aumlclass = "<a-umlclass id='"+idclass+"' classname='Class name' position='"+pos_x+" "+pos_y+" "+pos_z+"'></a-umlclass>";
+    // const aumlclass = "<a-umlclass id='"+idclass+"' classname='Class name' position='"+pos_x+" "+pos_y+" "+pos_z+"' ></a-umlclass>";
+    const aumlclass = "<a-umlclass id='"+idclass+"' classname='Class name' virtualuml-camera></a-umlclass>";
     
     // add a-umlclass element
     $("a-scene").append(aumlclass); 
@@ -72,8 +64,12 @@ $("#addclass")
     $('#aumlclass-class-name')
       .attr('data-aumlclass-class-name',idclass);
 
-    // LOCAL STORAGE - ADD CLASS
-    storageSetUMLclass(idclass,'Class name', position);
+    setTimeout(()=>{
+      let position = $("#"+idclass).attr('position');
+
+      // LOCAL STORAGE - ADD CLASS
+      storageSetUMLclass(idclass,'Class name', position);
+    },10);
   });
 
 

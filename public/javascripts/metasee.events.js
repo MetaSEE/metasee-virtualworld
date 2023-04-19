@@ -16,6 +16,7 @@ function htmlPositionToArray(htmlposition){
   const positions = text.split(' ');
   return positions;
 }
+
 // Basic Functions End
 
 
