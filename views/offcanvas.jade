@@ -36,12 +36,16 @@
           button#aumlclass-bt-add-oper.btn.btn-secondary.mt-2(type='button') Add Operation
       //- DELETE AND DONE BUTTONS
       .row.mb-2
-        .col.col-md-6
+        .col.col-md-12.mb-2
+          .d-grid.gap-2.col-12.mx-auto
+            button#bt-addumlassociation.btn.btn-secondary.btn-lg(type='button') Add association
+        .col.col-md-12.mb-5
           .d-grid.gap-2.col-12.mx-auto
             button#bt-deleteumlclass.btn.btn-danger.btn-lg(type='button') Delete
-        .col.col-md-6
+        .col.col-md-12
           .d-grid.gap-2.col-12.mx-auto
-            button#bt-offcanvas-done.btn.btn-dark.btn-lg(type='button', data-bs-dismiss='offcanvas') Done 
+            button#bt-offcanvas-done.btn.btn-dark.btn-lg(type='button', data-bs-dismiss='offcanvas')
+              h4 Done 
 //- Edit UML class Panel Offcanvas End
 
 //- Edit Association Panel Offcanvas
