@@ -139,6 +139,18 @@ $(document).on('click', '#aumlclass-bt-remove-oper-row', function () {
 
 // FOCUS ON CLASS NAME INPUT TYPE TEXT /////////////////////////////////////////////
 $("#offcanvasScrolling").on('shown.bs.offcanvas	', function(){
+  // CLOSE EDIT 3D MODEL PANEL
+  var myOffcanvas = document.getElementById('offcanvasEdit3DModelPanel');
+  var bsOffcanvas = bootstrap.Offcanvas.getInstance(myOffcanvas); 
+  if(bsOffcanvas){
+    bsOffcanvas.hide();
+    
+    //load data from new class
+    var myOffcanvasClass = document.getElementById('offcanvasEdit3DModelPanel');
+    var bsOffcanvasClass = bootstrap.Offcanvas.getInstance(myOffcanvasClass); 
+    bsOffcanvasClass.show();
+  }
+
   $('#aumlclass-class-name').trigger('focus');
 
   // set uml classname value
@@ -325,6 +337,13 @@ $("#offcanvasEdit3DModelPanel").on('shown.bs.offcanvas', function(){
     $("#scale_range").val(data[0].position.x);
   });
   
+});
+
+// when offcanvasEdit3DModelPanel is closed 
+$("#offcanvasEdit3DModelPanel").on('hide.bs.offcanvas', function(){
+  var myOffcanvas = document.getElementById('offcanvasScrolling');
+  var bsOffcanvas = bootstrap.Offcanvas.getInstance(myOffcanvas);
+  bsOffcanvas.hide();
 });
 
 // when offcanvasScrolling is opened 

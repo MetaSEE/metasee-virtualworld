@@ -105,6 +105,8 @@ AFRAME.registerComponent('a-umlclass-component', {
     // Do something when component's data is updated.
     this.self.setClassName();
     this.self.changeClassWidthAccordingClassName();
+
+    console.log('changed');
   },
 
   remove: function () {
