@@ -28,7 +28,7 @@ function storageSetUMLclass(id, classname, position){
     "classname": classname,
     "owner":"63ee7b392ed75e8905e7feee",
     "virtualworld": VW_ID,
-    "color":"orange",
+    "color":"#FFA500",
     "position": position
   }
 

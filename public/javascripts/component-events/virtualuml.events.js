@@ -140,6 +140,42 @@ $(document).on('click', '#aumlclass-bt-remove-oper-row', function () {
 // FOCUS ON CLASS NAME INPUT TYPE TEXT /////////////////////////////////////////////
 $("#offcanvasScrolling").on('shown.bs.offcanvas	', function(){
   $('#aumlclass-class-name').trigger('focus');
+
+  // set uml classname value
+  // get id from localstorage
+  const idumlclass = storageGetEditingAsset().id;
+
+  // get the classname from API
+  APIgetUMLclass(`${API_URL}/umlclass/id/${idumlclass}` , (data)=>{
+      // set the uml classname
+      for(let umlclass of data){
+        $('#aumlclass-class-name').val(umlclass.classname);
+      }
+  });
+});
+
+// HIDE RENAME AND DELETE AND SHOW COLOR & POSITION /////////////////////////////////////////////
+$("#offcanvasScrolling").on('show.bs.offcanvas	', function(){
+  // none to hidde and block to show
+  $('#bt-menu-rename').attr('style','display:none');
+  $('#bt-menu-delete').attr('style','display:none');
+  $('#bt-menu-color-position').attr('style','display:block');
+});
+
+// SHOW RENAME AND DELETE AND HIDDE COLOR & POSITION /////////////////////////////////////////////
+$("#offcanvasEdit3DModelPanel").on('show.bs.offcanvas	', function(){
+  // none to hidde and block to show
+  $('#bt-menu-rename').attr('style','display:block');
+  $('#bt-menu-delete').attr('style','display:block');
+  $('#bt-menu-color-position').attr('style','display:none');
+
+  // show classname on the panel
+  const idumlclass = storageGetEditingAsset().id;
+  APIgetUMLclass(`${API_URL}/umlclass/id/${idumlclass}` , (data)=>{
+    for(let umlclass of data){
+      $('#offcanvasEdit3DModelPanelLabel').text(`${umlclass.classname}`);
+    }
+  });
 });
 
 

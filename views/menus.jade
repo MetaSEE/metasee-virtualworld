@@ -40,10 +40,13 @@ nav#classmenu.navbar.navbar-expand-lg.bg-body-tertiary.position-absolute.bottom-
       span.navbar-toggler-icon
     #navbarNav.collapse.navbar-collapse
       ul.navbar-nav
-        li.nav-item
+        li.nav-item(id='bt-menu-rename')
           a.nav-link(href='#', data-bs-toggle='offcanvas', data-bs-target='#offcanvasScrolling', aria-controls='offcanvasRight')
-            h5 Edit Class
-        li.nav-item
+            h5 Rename
+        li.nav-item(id='bt-menu-delete')
+          a.nav-link(href='#', data-bs-toggle='offcanvas', data-bs-target='#offcanvasScrolling', aria-controls='offcanvasRight')
+            h5 Delete
+        li.nav-item(id='bt-menu-color-position')
           a.nav-link(href='#', data-bs-toggle='offcanvas', data-bs-target='#offcanvasEdit3DModelPanel', aria-controls='offcanvasRight')
-            h5 Edit 3D Model
+            h5 Color & Position
 //- UML class Menu End
