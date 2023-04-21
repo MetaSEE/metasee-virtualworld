@@ -16,7 +16,6 @@ function createUMLclassEntity(data) {
   el.setAttribute('scale', data.scale);
   el.setAttribute('color', data.color);
   el.setAttribute('networked', {template:'#umlclass-template', networkId:data.id, persistent:true, owner:'scene'});
-  // networked="template:#sphere-template;networkId:sphere;persistent:true;owner:scene"
 
   scene.append(el);
 }
@@ -405,7 +404,7 @@ $('#pos_x_range').on('input change', function(){
   // update 3d element position
   edit3Dmodel("position","x",$(this).val(),storageGetEditingAsset().id);
 
-  // change position
+  // change UML CLASS position
   const idumlclass = storageGetEditingAsset().id;
   const position = $("#"+idumlclass).attr('position');
   const newposition = {
@@ -413,6 +412,7 @@ $('#pos_x_range').on('input change', function(){
     "y":position.y,
     "z":position.z
   }
+
   APIupdateUMLclass(`${API_URL}/umlclass/id/${idumlclass}` , {"position":newposition}); //change position.x
 });
 
@@ -453,6 +453,57 @@ $('#pos_z_range').on('input change', function(){
   }
   APIupdateUMLclass(`${API_URL}/umlclass/id/${idumlclass}` , {"position":newposition}); //change position.z
 });
+
+// Update the UML association position after UML class position changed
+function updateUMLassociationPositionAfterUMLclassPositionChanged(){
+  const idumlclass = storageGetEditingAsset().id;
+  APIgetUMLclass(`${API_URL}/umlclass/id/${idumlclass}` , (umlclass_data)=>{
+    if(umlclass_data.length > 0){
+      for(let umlclass of umlclass_data){
+
+        // select the association according to UML class - discovery if it is a classtart or classend
+        // in case classtart
+        APIloadUMLassociation(`${API_URL}/umlassociation/search?startclass=${umlclass._id}` , (data)=>{
+          if(data.length > 0){
+            for(let assoc of data){
+              const assoc_element = $("#"+assoc.id);
+              assoc_element.attr('start_pos' , '#'+assoc.umlclass_start.position);
+            }
+          }
+        });   
+
+        // in case classend
+        APIloadUMLassociation(`${API_URL}/umlassociation/search?endclass=${umlclass._id}` , (data)=>{
+          if(data.length > 0){
+            for(let assoc of data){
+              const assoc_element = $("#"+assoc.id);
+              assoc_element.attr('end_pos' , '#'+assoc.umlclass_end.position);
+            }
+          }
+        });    
+
+      }
+    }
+  });
+}
+
+// X
+$('#pos_x_range').on('mouseup', function(){
+  // change UML CLASS position
+  updateUMLassociationPositionAfterUMLclassPositionChanged();
+});
+// Y
+$('#pos_y_range').on('mouseup', function(){
+  // change UML CLASS position
+  updateUMLassociationPositionAfterUMLclassPositionChanged();
+});
+// Z
+$('#pos_z_range').on('mouseup', function(){
+  // change UML CLASS position
+  updateUMLassociationPositionAfterUMLclassPositionChanged();
+});
+
+
 
 // Rotation
 $('#rotation_range').on('input change', function(){

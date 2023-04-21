@@ -393,7 +393,6 @@ AFRAME.registerComponent('a-association-component', {
 
   events: {
     click: function (evt) {
-      NAF.utils.takeOwnership(this.el);
       
       // OPEN OFFCANVAS
       var myOffcanvas = document.getElementById('offcanvasEditAssociationPanel')
