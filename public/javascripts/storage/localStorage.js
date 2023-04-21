@@ -26,7 +26,7 @@ function storageSetUMLclass(id, classname, position){
   let umlclassdata = {
     "id":id,
     "classname": classname,
-    "owner":"63ee7b392ed75e8905e7feee",
+    "owner":"6442a07b9426fb47e3c009a8", //CHANGE THIS
     "virtualworld": VW_ID,
     "color":"#FFA500",
     "position": position
