@@ -47,6 +47,7 @@ AFRAME.registerComponent('a-umlclass-component', {
       // var myoffcanvasEdit3DModelPanel = document.getElementById('offcanvasEdit3DModelPanel');
       // var bsoffcanvasEdit3DModelPanel = bootstrap.Offcanvas.getInstance(myoffcanvasEdit3DModelPanel); 
       // bsoffcanvasEdit3DModelPanel.hide();
+      NAF.utils.takeOwnership(this.el);
       
       // OPEN OFFCANVAS
       var myOffcanvas = document.getElementById('offcanvasScrolling')
@@ -66,6 +67,8 @@ AFRAME.registerComponent('a-umlclass-component', {
     },
     
     mouseenter: function (evt) {
+      NAF.utils.takeOwnership(this.el);
+
       this.originalscale = this.el.getAttribute('scale');
 
       const factor = 1.1;
@@ -78,6 +81,8 @@ AFRAME.registerComponent('a-umlclass-component', {
     },
     
     mouseleave: function (evt) {
+      NAF.utils.takeOwnership(this.el);
+
       this.originalscale = this.el.getAttribute('scale');
 
       const factor = 1.1;
@@ -124,6 +129,7 @@ AFRAME.registerComponent('a-umlclass-component', {
     this.class_box_element = document.createElement('a-box');
 
     this.class_box_element.setAttribute('id',this.data.id+'_box');
+    this.class_box_element.classList.add('umlclass-box');
     this.class_box_element.setAttribute('color',this.data.color);
     this.class_box_element.setAttribute('position',this.data.position);
     this.class_box_element.setAttribute('scale',this.data.scale);
@@ -137,7 +143,7 @@ AFRAME.registerComponent('a-umlclass-component', {
 
   createClassName: function(){
     this.class_name_element = document.createElement('a-text');
-
+    this.class_name_element.classList.add('umlclass-classname');
     this.class_name_element.setAttribute('value',this.data.classname);
     this.class_name_element.setAttribute('width',5);
     this.class_name_element.setAttribute('color','black');
@@ -386,7 +392,9 @@ AFRAME.registerComponent('a-association-component', {
   },
 
   events: {
-    click: function (evt) {     
+    click: function (evt) {
+      NAF.utils.takeOwnership(this.el);
+      
       // OPEN OFFCANVAS
       var myOffcanvas = document.getElementById('offcanvasEditAssociationPanel')
       evt.stopPropagation();

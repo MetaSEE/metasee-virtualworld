@@ -15,6 +15,8 @@ function createUMLclassEntity(data) {
   el.setAttribute('rotation', data.rotation);
   el.setAttribute('scale', data.scale);
   el.setAttribute('color', data.color);
+  el.setAttribute('networked', {template:'#umlclass-template', networkId:data.id, persistent:true, owner:'scene'});
+  // networked="template:#sphere-template;networkId:sphere;persistent:true;owner:scene"
 
   scene.append(el);
 }
@@ -483,8 +485,14 @@ $('#scale_range').on('input change', function(){
 // CHANGE UML CLASS COLOR
 $('#umlClassColor').on('input change', function(){
   const editingasset = storageGetEditingAsset();        // get 3d model from storage
+  
+  // changing color from a-box
   const element = $("#"+editingasset.id+" a-box");      // select a-box
   element.attr('color',$(this).val());                  // change color
+
+  // changing color from a-umlclass
+  const aumlclass_element = $("#"+editingasset.id);      // select a-box
+  aumlclass_element.attr('color',$(this).val());         // change color
 
   // change color
   APIupdateUMLclass(`${API_URL}/umlclass/id/${editingasset.id}` , {"color":$(this).val()});
