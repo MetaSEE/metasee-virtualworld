@@ -40,6 +40,25 @@ NAF.schemas.getComponents = (template) => {
     });
   }
 
+  //uml association
+  if (!NAF.schemas.hasTemplate('#umlassociation-template')) {
+    NAF.schemas.add({
+      template: '#umlassociation-template',
+      components: [
+        'id',
+        'color',
+        'lineWidth',
+        'start',
+        'end',
+        'start_pos',
+        'end_pos',
+        'material',
+        'meshline',
+        'a-association-component'
+      ]
+    });
+  }
+
   const components = NAF.schemas.getComponentsOriginal(template);
   return components;
 };

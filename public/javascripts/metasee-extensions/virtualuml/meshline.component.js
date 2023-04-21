@@ -1,6 +1,6 @@
 AFRAME.registerComponent('meshline', {
   schema: {
-    lineWidth: {type: 'float', default:.05},
+    lineWidth: {type: 'float', default:.07},
     path: {type:'array', default:[]},
     color: {type: 'color', default: 'black'}
   },

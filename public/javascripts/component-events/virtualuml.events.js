@@ -36,6 +36,7 @@ function createUMLassociationEntity(data){
     el.setAttribute('id', umlassociation.id);
     el.setAttribute('start', `#${umlassociation.umlclass_start.id}`);
     el.setAttribute('end', `#${umlassociation.umlclass_end.id}`);
+    el.setAttribute('networked', {template:'#umlassociation-template', networkId:umlassociation.id, persistent:true, owner:'scene'});
 
     scene.append(el);
   }
