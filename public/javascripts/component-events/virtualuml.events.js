@@ -347,7 +347,7 @@ $("#offcanvasEdit3DModelPanel").on('hide.bs.offcanvas', function(){
   bsOffcanvas.hide();
 });
 
-// when offcanvasScrolling is opened 
+// when offcanvasEditAssociationPanelLabel is opened 
 $("#offcanvasEditAssociationPanel").on('shown.bs.offcanvas', function(){
   $("#aumlclass-ass-start-select").remove();
   $("#aumlclass-ass-end-select").remove();
@@ -362,6 +362,9 @@ $("#offcanvasEditAssociationPanel").on('shown.bs.offcanvas', function(){
       $("#aumlclass-section-ass-end .card-body").append(selectend);
 
       for(let umlclass of data){
+        //change the title label
+        // $("#offcanvasEditAssociationPanelLabel").text(``);
+
         var option = '<option value="'+umlclass.id+'">'+umlclass.classname+'</option>'; 
         $("#aumlclass-ass-start-select").append(option); // association start
         $("#aumlclass-ass-end-select").append(option);   // association end
