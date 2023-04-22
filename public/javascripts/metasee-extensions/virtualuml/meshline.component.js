@@ -12,8 +12,15 @@ AFRAME.registerComponent('meshline', {
     this.createline(this.el, this.convertPathToVector3());
   },
 
-  update: function () {
+  update: function (oldData) {
     // Do something when component's data is updated.
+    if(oldData.color == undefined){
+      // console.log('undefined');
+    }else{
+      NAF.utils.takeOwnership(this.el);
+      // console.log('defined');
+    }
+    
     this.updateLine(this.convertPathToVector3());
   },
 

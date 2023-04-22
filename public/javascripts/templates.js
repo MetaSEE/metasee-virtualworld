@@ -45,16 +45,9 @@ NAF.schemas.getComponents = (template) => {
     NAF.schemas.add({
       template: '#umlassociation-template',
       components: [
-        'id',
-        'color',
-        'lineWidth',
-        'start',
-        'end',
-        'start_pos',
-        'end_pos',
-        'material',
-        'meshline',
-        'a-association-component'
+        'position',
+        'rotation',
+        'meshline'
       ]
     });
   }
