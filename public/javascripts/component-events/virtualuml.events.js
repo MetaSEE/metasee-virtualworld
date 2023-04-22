@@ -57,7 +57,9 @@ $("#addclass")
 
     // generate an a-umlclass element
     // const aumlclass = "<a-umlclass id='"+idclass+"' classname='Class name' position='"+pos_x+" "+pos_y+" "+pos_z+"' ></a-umlclass>";
-    const aumlclass = "<a-umlclass id='"+idclass+"' classname='Class name' virtualuml-camera></a-umlclass>";
+    const aumlclass = "<a-umlclass id='"+idclass+"' classname='Class name' virtualuml-camera networked='template:#umlclass-template; networkId:"+idclass+"; persistent:true; owner:scene'></a-umlclass>";
+
+    // el.setAttribute('networked', {template:'#umlclass-template', networkId:data.id, persistent:true, owner:'scene'});
     
     // add a-umlclass element
     $("a-scene").append(aumlclass); 
@@ -590,19 +592,23 @@ $("#bt-deleteumlclass").click(function(){
     //PAREI AQUI
     APIloadUMLassociation(`${API_URL}/umlassociation/search?vw=${VW_ID}` , (umlassociations)=>{
       for(let umlassoc of umlassociations){
-        if(umlassoc.umlclass_start.id == idumlclass || umlassoc.umlclass_end.id == idumlclass){
-          storageDeleteUMLassociationById(umlassoc.id);
-          $("#"+umlassoc.id).remove();
-
-          // DELETE UML CLASS FROM VIRTUAL WORLD
-          $("#"+idumlclass).remove();
-
-          // LOCAL STORAGE
-          // delete umlclass
-          storageDeleteUMLclassById(idumlclass);          
+        if(umlassoc.umlclass_start.id != null || umlassoc.umlclass_end.id != null){
+          if(umlassoc.umlclass_start.id == idumlclass || umlassoc.umlclass_end.id == idumlclass){
+            storageDeleteUMLassociationById(umlassoc.id);
+            $("#"+umlassoc.id).remove();    
+          }
         }
       }
     });
+
+    // DELETE UML CLASS FROM VIRTUAL WORLD
+    $("#"+idumlclass).remove();  
+
+    // LOCAL STORAGE
+    // delete umlclass
+    setTimeout(()=>{
+      storageDeleteUMLclassById(idumlclass);
+    },5);
   }
 });
 
