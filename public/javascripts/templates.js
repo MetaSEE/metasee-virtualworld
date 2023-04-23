@@ -28,9 +28,19 @@ NAF.schemas.getComponents = (template) => {
       components: [
         'position',
         'color',
+        'rotation',
+        'scale',
         {
           selector: '.umlclass-box',
           component: 'color'
+        },
+        {
+          selector: '.umlclass-box',
+          component: 'rotation'
+        },
+        {
+          selector: '.umlclass-box',
+          component: 'scale'
         },
         {
           selector: '.umlclass-classname',

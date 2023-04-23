@@ -32,8 +32,6 @@ function storageSetUMLclass(id, classname, position){
     "position": position
   }
 
-  console.log(umlclassdata);
-
   APIcreateUMLclass(`${API_URL}/umlclass` , umlclassdata);
 }
 
