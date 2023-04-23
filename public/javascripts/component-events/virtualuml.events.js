@@ -39,7 +39,28 @@ function createUMLassociationEntity(data){
     el.setAttribute('networked', {template:'#umlassociation-template', networkId:umlassociation.id, persistent:true, owner:'scene'});
 
     scene.append(el);
+
+    storageSetUMLassociationOnlyLocalStorage(umlassociation.id, umlassociation.umlclass_start.id, umlassociation.umlclass_end.id);
   }
+}
+
+// this function is called when it is updated from panel
+function updateUMLassociationEntity(data){
+  // for(let umlassociation of data){
+    const scene = document.querySelector('a-scene');
+    const el = document.createElement('a-association');
+
+    // for(let key in data){
+    //   el.setAttribute(key, data[key]); // like [el.setAttribute('id', umlassociation.id);] and other attributes 
+    // }
+    
+    el.setAttribute('id', data.id);
+    el.setAttribute('start', `#${data.start}`);
+    el.setAttribute('end', `#${data.end}`);
+    el.setAttribute('networked', {template:'#umlassociation-template', networkId:data.umlassociationid, persistent:true, owner:'scene'});
+    
+    scene.append(el);
+  // }
 }
 // LOAD UML ASSOCIATIONS - END  
 
@@ -253,7 +274,8 @@ $("#offcanvasEditAssociationPanel").on('hide.bs.offcanvas', function(){
     // GET _ID UMLCLASS
     APIgetUMLclass(`${API_URL}/umlclass/id/${idumlclass_start}`, (data_start)=>{
       id_umlclass_start_mongodb = data_start[0]._id; // from _id umlclasses
-      
+      console.log('L258');
+
       APIgetUMLclass(`${API_URL}/umlclass/id/${idumlclass_end}`, (data_end)=>{
         id_umlclass_end_mongodb = data_end[0]._id; // from _id umlclasses
 
@@ -266,15 +288,13 @@ $("#offcanvasEditAssociationPanel").on('hide.bs.offcanvas', function(){
           APIloadUMLassociation(`${API_URL}/umlassociation/id/${idassociation_editing}` , (data)=>{
             for(let umlassoc of data){
               if(idumlclass_start == umlassoc.umlclass_start.id && idumlclass_end == umlassoc.umlclass_end.id){
-                console.log('tem associação');
+                // console.log('tem associação');
               }else{
                 // CREATE A-ASSOCIATION ELEMENT
                 $("a-scene").append(association_3d);
 
                 // LOCAL AND API STORAGE
                 storageSetUMLassociation(idassociation, idumlclass_start, idumlclass_end, id_umlclass_start_mongodb, id_umlclass_end_mongodb);
-
-                console.log('saving');
               }
             }
           });
@@ -287,7 +307,77 @@ $("#offcanvasEditAssociationPanel").on('hide.bs.offcanvas', function(){
         }
       });
     });       
+  }else{
+    // verify if startclass OR endclass from the association changed
+    // 1- get startclassAPI and endclassAPI from API
+    // create id uml association
+    const editingasset = storageGetEditingAsset();                            // return a json object
+    const idassoc = editingasset.id;
+
+    // get id uml class from association start
+    const idumlclass_start_from_panel = $("#aumlclass-ass-start-select").find(":selected").val();
+    
+    // get id uml class from association end
+    const idumlclass_end_from_panel = $("#aumlclass-ass-end-select").find(":selected").val();
+
+    // 2- verify if startclassFromAPI != startclassFromPanel AND endclassFromAPI != endclassFromPanel
+    APIloadUMLassociation(`${API_URL}/umlassociation/id/${idassoc}` , (dataAssoc)=>{
+      // 3- if there is some changes, update them
+      if(dataAssoc.length > 0){
+        for(let assoc of dataAssoc){
+          if(idumlclass_start_from_panel != assoc.umlclass_start.id){
+            //get _id from umlclass_end
+            APIloadUMclass(`${API_URL}/umlclass/id/${idumlclass_start_from_panel}` , (umlclass)=>{
+              if(umlclass.length > 0){
+                for(let dataUMLclass of umlclass){
+                  //data update
+                  APIupdateUMLassociation(`${API_URL}/umlassociation/${assoc._id}`, {umlclass_start:dataUMLclass._id});
+
+                  // remove association element
+                  $("#"+assoc.id).remove();
+
+                  // add association element
+                  let association_data = {
+                    "umlassociationid":assoc.id,
+                    "id":assoc.id,
+                    "start": dataUMLclass.id,
+                    "end": assoc.umlclass_end.id
+                  };
+
+                  updateUMLassociationEntity(association_data);
+                }
+              }
+            });
+          }
+          if(idumlclass_end_from_panel != assoc.umlclass_end.id){
+            //get _id from umlclass_end
+            APIloadUMclass(`${API_URL}/umlclass/id/${idumlclass_end_from_panel}` , (umlclass)=>{
+              if(umlclass.length > 0){
+                for(let dataUMLclass of umlclass){
+                  //data update
+                  APIupdateUMLassociation(`${API_URL}/umlassociation/${assoc._id}`, {umlclass_end:dataUMLclass._id});
+                          
+                  // remove association element
+                  $("#"+assoc.id).remove();
+
+                  // add association element
+                  let association_data = {
+                    "umlassociationid":assoc.id,
+                    "id":assoc.id,
+                    "start": assoc.umlclass_start.id,
+                    "end": dataUMLclass.id
+                  };
+
+                  updateUMLassociationEntity(association_data);
+                }
+              }
+            });
+          }
+        }
+      }
+    });
   }
+
 });
 
 
@@ -351,12 +441,12 @@ $("#offcanvasEdit3DModelPanel").on('hide.bs.offcanvas', function(){
   bsOffcanvas.hide();
 });
 
-// when offcanvasEditAssociationPanelLabel is opened 
+// when offcanvasEditAssociationPanel is opened 
 $("#offcanvasEditAssociationPanel").on('shown.bs.offcanvas', function(){
   $("#aumlclass-ass-start-select").remove();
   $("#aumlclass-ass-end-select").remove();
 
-  // List the uml associations
+  // List the uml classes
   APIgetUMLclass(`${API_URL}/umlclass/vw?id=${VW_ID}` , function(data){
     if(data.length > 0){
       const selectstart = '<select id="aumlclass-ass-start-select" aria-label="" class="form-select"><option value=""></option></select>';
