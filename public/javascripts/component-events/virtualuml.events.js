@@ -9,6 +9,9 @@ APIloadUMclass(`${API_URL}/umlclass/vw?id=${VW_ID}` , (data_umlclass)=>{
 function createUMLclassEntity(data) {
   const scene = document.querySelector('a-scene');
   const el = document.createElement('a-umlclass');
+
+  scene.append(el);
+  
   el.setAttribute('id', data.id);
   el.setAttribute('classname', data.classname);
   el.setAttribute('position', data.position);
@@ -16,8 +19,6 @@ function createUMLclassEntity(data) {
   el.setAttribute('scale', data.scale);
   el.setAttribute('color', data.color);
   el.setAttribute('networked', {template:'#umlclass-template', networkId:data.id, persistent:true, owner:'scene'});
-
-  scene.append(el);
 }
 // LOAD UMLCLASS - END
 
@@ -78,12 +79,24 @@ $("#addclass")
 
     // generate an a-umlclass element
     // const aumlclass = "<a-umlclass id='"+idclass+"' classname='Class name' position='"+pos_x+" "+pos_y+" "+pos_z+"' ></a-umlclass>";
-    const aumlclass = "<a-umlclass id='"+idclass+"' classname='Class name' virtualuml-camera networked='template:#umlclass-template; networkId:"+idclass+"; persistent:true; owner:scene'></a-umlclass>";
+    // const aumlclass = "<a-umlclass id='"+idclass+"' classname='Class name' virtualuml-camera networked='template:#umlclass-template; networkId:"+idclass+"; persistent:true; owner:scene'></a-umlclass>";
 
-    // el.setAttribute('networked', {template:'#umlclass-template', networkId:data.id, persistent:true, owner:'scene'});
+    const el = document.createElement('a-umlclass');
+    const scene = document.querySelector('a-scene');
+    scene.appendChild(el);
+
+    el.setAttribute('id' , idclass);
+    el.setAttribute('classname' , 'Class name');
+    el.setAttribute('virtualuml-camera' , '');
+    el.setAttribute('networked' , {template:'#umlclass-template', networkId:idclass, persistent:true, owner:'scene'});
+    
+    // NAF.utils.getNetworkedEntity(el).then((networkedEl) => {
+    //   document.body.dispatchEvent(new CustomEvent('persistentEntityCreated', {detail: {el: el}}));
+    //   console.log('here');
+    // });
     
     // add a-umlclass element
-    $("a-scene").append(aumlclass); 
+    // $("a-scene").append(aumlclass); 
   
     // attribute id to data-aumlclass-class-name and open offcanvas
     $('#aumlclass-class-name')
@@ -92,9 +105,13 @@ $("#addclass")
     setTimeout(()=>{
       let position = $("#"+idclass).attr('position');
 
+      // NAF.utils.getNetworkedEntity(aumlclass).then((networkedEl) => {
+      //   document.body.dispatchEvent(new CustomEvent('persistentEntityCreated', {detail: {el: aumlclass}}));
+      // });
+
       // LOCAL STORAGE - ADD CLASS
       storageSetUMLclass(idclass,'Class name', position);
-    },10);
+    },5);
   });
 
 
@@ -274,7 +291,6 @@ $("#offcanvasEditAssociationPanel").on('hide.bs.offcanvas', function(){
     // GET _ID UMLCLASS
     APIgetUMLclass(`${API_URL}/umlclass/id/${idumlclass_start}`, (data_start)=>{
       id_umlclass_start_mongodb = data_start[0]._id; // from _id umlclasses
-      console.log('L258');
 
       APIgetUMLclass(`${API_URL}/umlclass/id/${idumlclass_end}`, (data_end)=>{
         id_umlclass_end_mongodb = data_end[0]._id; // from _id umlclasses
@@ -737,7 +753,6 @@ $("#bt-deleteumlassociation").click(function(){
     }
 
   }else{
-    alert("There are no associations!");
+    // alert("There are no associations!");
   }
-
 });

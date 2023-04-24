@@ -417,5 +417,3 @@ AFRAME.registerComponent('a-association-component', {
   }
   
 });
-
-
