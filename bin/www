@@ -65,6 +65,56 @@ var rtc = easyrtc.listen(app, socketServer, null, function(err, rtcRef) {
 });
 // Networked-Aframe End
 
+// My Socket.IO
+socketServer.on('connection', (socket) => {
+  console.log('User connected');
+
+  // UML class
+  socket.on('updateUMLclass', (data)=>{
+    socketServer.emit('UMLclassUpdated', data);
+  });
+
+  socket.on('updateUMLclassName', (data)=>{
+    socketServer.emit('UMLclassNameUpdated', data);
+  });
+  
+  socket.on('updateUMLclassPosition', (data)=>{
+    socketServer.emit('UMLclassPositionUpdated', data);
+  });
+
+  socket.on('updateUMLclassRotation', (data)=>{
+    socketServer.emit('UMLclassRotationUpdated', data);
+  });
+
+  socket.on('updateUMLclassScale', (data)=>{
+    socketServer.emit('UMLclassScaleUpdated', data);
+  });
+
+  socket.on('updateUMLclassColor', (data)=>{
+    socketServer.emit('UMLclassColorUpdated', data);
+  });
+
+  socket.on('deleteUMLclass', (data)=>{
+    socketServer.emit('UMLclassDeleted', data);
+  });
+  // /UML class
+
+  // UML association
+  socket.on('updateUMLassociation', (data)=>{
+    socketServer.emit('UMLassociationUpdated', data);
+  });
+
+  socket.on('deleteUMLassociation', (data)=>{
+    socketServer.emit('UMLassociationDeleted', data);
+  });
+  // /UML association
+
+  socket.on('disconnect', () => {
+    console.log('User disconnected');
+  });
+});
+// /My Socket.IO
+
 /**
  * Listen on provided port, on all network interfaces.
  */

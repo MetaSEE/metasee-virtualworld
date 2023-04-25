@@ -89,15 +89,7 @@ $("#addclass")
     el.setAttribute('classname' , 'Class name');
     el.setAttribute('virtualuml-camera' , '');
     el.setAttribute('networked' , {template:'#umlclass-template', networkId:idclass, persistent:true, owner:'scene'});
-    
-    // NAF.utils.getNetworkedEntity(el).then((networkedEl) => {
-    //   document.body.dispatchEvent(new CustomEvent('persistentEntityCreated', {detail: {el: el}}));
-    //   console.log('here');
-    // });
-    
-    // add a-umlclass element
-    // $("a-scene").append(aumlclass); 
-  
+      
     // attribute id to data-aumlclass-class-name and open offcanvas
     $('#aumlclass-class-name')
       .attr('data-aumlclass-class-name',idclass);
@@ -105,9 +97,16 @@ $("#addclass")
     setTimeout(()=>{
       let position = $("#"+idclass).attr('position');
 
-      // NAF.utils.getNetworkedEntity(aumlclass).then((networkedEl) => {
-      //   document.body.dispatchEvent(new CustomEvent('persistentEntityCreated', {detail: {el: aumlclass}}));
-      // });
+      NAF.utils.getNetworkedEntity(el).then((networkedEl) => {
+        document.body.dispatchEvent(new CustomEvent('persistentEntityCreated', {detail: {el: el}}));
+      });
+  
+      data = {
+        "id":idclass,
+        "position":position
+      };
+    
+      socket.emit('updateUMLclass', data);
 
       // LOCAL STORAGE - ADD CLASS
       storageSetUMLclass(idclass,'Class name', position);
@@ -120,6 +119,13 @@ $('#aumlclass-class-name')
   .keyup(function(){ // from input type text
     const aumlclass_target = $(this).attr('data-aumlclass-class-name'); // get aumlclass id
     $("#"+aumlclass_target).attr('classname',$(this).val()); // change 3d uml class name
+
+    data = {
+      "id":aumlclass_target,
+      "classname":$(this).val()
+    };
+
+    socket.emit('updateUMLclassName' , data);
   })
   .on('keypress',function(evt) { // call the DONE button when pressing ENTER 
     const aumlclass_target = $(this).attr('data-aumlclass-class-name'); // get aumlclass id
@@ -129,6 +135,13 @@ $('#aumlclass-class-name')
         var myOffcanvas = document.getElementById('offcanvasScrolling');
         var bsOffcanvas = bootstrap.Offcanvas.getInstance(myOffcanvas);
         bsOffcanvas.hide();
+
+        data = {
+          "id":aumlclass_target,
+          "classname":$(this).val()
+        };
+
+        socket.emit('updateUMLclassName' , data);
 
         // LOCAL STORAGE - RENAME CLASS
         storageRenameUMLclass(aumlclass_target, $(this).val());
@@ -309,6 +322,18 @@ $("#offcanvasEditAssociationPanel").on('hide.bs.offcanvas', function(){
                 // CREATE A-ASSOCIATION ELEMENT
                 $("a-scene").append(association_3d);
 
+                NAF.utils.getNetworkedEntity(association_3d).then((networkedEl) => {
+                  document.body.dispatchEvent(new CustomEvent('persistentEntityCreated', {detail: {el: association_3d}}));
+                });
+
+                data = {
+                  "id":idassociation,
+                  "start":`#${idumlclass_start}`,
+                  "end":`#${idumlclass_end}`
+                };
+      
+                socket.emit('updateUMLassociation' , data);
+
                 // LOCAL AND API STORAGE
                 storageSetUMLassociation(idassociation, idumlclass_start, idumlclass_end, id_umlclass_start_mongodb, id_umlclass_end_mongodb);
               }
@@ -317,6 +342,18 @@ $("#offcanvasEditAssociationPanel").on('hide.bs.offcanvas', function(){
         }else{
           // CREATE A-ASSOCIATION ELEMENT
           $("a-scene").append(association_3d);
+
+          NAF.utils.getNetworkedEntity(association_3d).then((networkedEl) => {
+            document.body.dispatchEvent(new CustomEvent('persistentEntityCreated', {detail: {el: association_3d}}));
+          });
+
+          data = {
+            "id":idassociation,
+            "start":`#${idumlclass_start}`,
+            "end":`#${idumlclass_end}`
+          };
+
+          socket.emit('updateUMLassociation' , data);
 
           // LOCAL AND API STORAGE
           storageSetUMLassociation(idassociation, idumlclass_start, idumlclass_end, id_umlclass_start_mongodb, id_umlclass_end_mongodb);
@@ -342,7 +379,7 @@ $("#offcanvasEditAssociationPanel").on('hide.bs.offcanvas', function(){
       if(dataAssoc.length > 0){
         for(let assoc of dataAssoc){
           if(idumlclass_start_from_panel != assoc.umlclass_start.id){
-            //get _id from umlclass_end
+            //get _id from umlclass_start
             APIloadUMclass(`${API_URL}/umlclass/id/${idumlclass_start_from_panel}` , (umlclass)=>{
               if(umlclass.length > 0){
                 for(let dataUMLclass of umlclass){
@@ -359,6 +396,14 @@ $("#offcanvasEditAssociationPanel").on('hide.bs.offcanvas', function(){
                     "start": dataUMLclass.id,
                     "end": assoc.umlclass_end.id
                   };
+
+                  let data = {
+                    "id":assoc.id,
+                    "start": `#${dataUMLclass.id}`,
+                    "end": `#${assoc.umlclass_end.id}`
+                  };
+
+                  socket.emit('updateUMLassociation' , data);
 
                   updateUMLassociationEntity(association_data);
                 }
@@ -383,6 +428,14 @@ $("#offcanvasEditAssociationPanel").on('hide.bs.offcanvas', function(){
                     "start": assoc.umlclass_start.id,
                     "end": dataUMLclass.id
                   };
+
+                  let data = {
+                    "id":assoc.id,
+                    "start": `#${assoc.umlclass_start.id}`,
+                    "end": `#${dataUMLclass.id}`
+                  };
+
+                  socket.emit('updateUMLassociation' , data);
 
                   updateUMLassociationEntity(association_data);
                 }
@@ -522,6 +575,13 @@ $('#pos_x_range').on('input change', function(){
     "z":position.z
   }
 
+  data = {
+    "id":idumlclass,
+    "position":newposition
+  };
+
+  socket.emit('updateUMLclassPosition', data);
+
   APIupdateUMLclass(`${API_URL}/umlclass/id/${idumlclass}` , {"position":newposition}); //change position.x
 });
 
@@ -541,6 +601,14 @@ $('#pos_y_range').on('input change', function(){
     "y":$(this).val(),
     "z":position.z
   }
+
+  data = {
+    "id":idumlclass,
+    "position":newposition
+  };
+
+  socket.emit('updateUMLclassPosition', data);
+
   APIupdateUMLclass(`${API_URL}/umlclass/id/${idumlclass}` , {"position":newposition}); //change position.y
 });
 
@@ -560,6 +628,14 @@ $('#pos_z_range').on('input change', function(){
     "y":position.y,
     "z":$(this).val()
   }
+
+  data = {
+    "id":idumlclass,
+    "position":newposition
+  };
+
+  socket.emit('updateUMLclassPosition', data);
+
   APIupdateUMLclass(`${API_URL}/umlclass/id/${idumlclass}` , {"position":newposition}); //change position.z
 });
 
@@ -624,6 +700,14 @@ $('#rotation_range').on('input change', function(){
   
   // change rotation
   const idumlclass = storageGetEditingAsset().id;
+
+  data = {
+    "id":idumlclass,
+    "rotation":$(this).val()
+  };
+
+  socket.emit('updateUMLclassRotation' , data);
+
   APIupdateUMLclass(`${API_URL}/umlclass/id/${idumlclass}` , {"rotation":{"y":$(this).val()}});
 });
 
@@ -638,6 +722,14 @@ $('#scale_range').on('input change', function(){
   // change scale
   const idumlclass = storageGetEditingAsset().id;
   const data = {"x":$(this).val(), "y":$(this).val(), "z":$(this).val()};
+
+  newdata = {
+    "id":idumlclass,
+    "scale":data
+  };
+
+  socket.emit('updateUMLclassScale' , newdata);
+
   APIupdateUMLclass(`${API_URL}/umlclass/id/${idumlclass}` , {"scale":data});
 });
 
@@ -653,6 +745,13 @@ $('#umlClassColor').on('input change', function(){
   // changing color from a-umlclass
   const aumlclass_element = $("#"+editingasset.id);      // select a-box
   aumlclass_element.attr('color',$(this).val());         // change color
+
+  data = {
+    "id":editingasset.id,
+    "color":$(this).val()
+  };
+
+  socket.emit('updateUMLclassColor' , data);
 
   // change color
   APIupdateUMLclass(`${API_URL}/umlclass/id/${editingasset.id}` , {"color":$(this).val()});
@@ -700,6 +799,7 @@ $("#bt-deleteumlclass").click(function(){
       for(let umlassoc of umlassociations){
         if(umlassoc.umlclass_start.id != null || umlassoc.umlclass_end.id != null){
           if(umlassoc.umlclass_start.id == idumlclass || umlassoc.umlclass_end.id == idumlclass){
+            socket.emit('deleteUMLassociation' , {"id":umlassoc.id});
             storageDeleteUMLassociationById(umlassoc.id);
             $("#"+umlassoc.id).remove();    
           }
@@ -713,6 +813,9 @@ $("#bt-deleteumlclass").click(function(){
     // LOCAL STORAGE
     // delete umlclass
     setTimeout(()=>{
+
+      socket.emit('deleteUMLclass', {"id":idumlclass});
+
       storageDeleteUMLclassById(idumlclass);
     },5);
   }
@@ -749,6 +852,9 @@ $("#bt-deleteumlassociation").click(function(){
 
       // LOCAL STORAGE
       // delete umlassociation
+      
+      socket.emit('deleteUMLassociation' , {"id":idumlassociation});
+
       storageDeleteUMLassociationById(idumlassociation);
     }
 

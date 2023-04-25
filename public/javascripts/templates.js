@@ -1,6 +1,6 @@
-function onConnect() {
-  console.log('onConnect', new Date());
-}
+// function onConnect() {
+//   console.log('onConnect', new Date());
+// }
 
 NAF.schemas.getComponentsOriginal = NAF.schemas.getComponents;
 NAF.schemas.getComponents = (template) => {
@@ -12,7 +12,7 @@ NAF.schemas.getComponents = (template) => {
 document.addEventListener('DOMContentLoaded', () => {                           
   const scene = document.querySelector('a-scene');
   const sceneLoaded = () => {
-    console.log("scene loaded");
+    // console.log("scene loaded");
     //document.getElementById("player").setAttribute("networked", "template:#avatar-template;attachTemplateToLocal:false;");
   }
   if (scene.hasLoaded) {                                                         
